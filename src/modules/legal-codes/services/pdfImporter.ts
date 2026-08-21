@@ -2,7 +2,7 @@ import { PDFParse } from 'pdf-parse'
 import { supabaseAdmin } from '@/core/database/supabase-admin'
 import { LegalCodeRegistryEntry, buildSourceUrl } from '../registry'
 
-const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) LawLM-KanunSenkron/1.0 (+https://lawlm.local; hukuk burosu ic kullanim araci)';
+const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) UsteHukuk-KanunSenkron/1.0 (+https://ustehukuk.com; hukuk burosu ic kullanim araci)';
 
 interface ParsedArticle {
   articleNo: string;

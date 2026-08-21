@@ -79,7 +79,7 @@ tekrarlama.`;
     }
 
     // ChatWidget ilk mesaj olarak assistant greeting gönderir:
-    //   [assistant: "LawLM Terminal v1.0...", user: "merhaba"]
+    //   [assistant: "Üste Hukuk Terminal v1.0...", user: "merhaba"]
     // Qwen gibi yerel modeller mesaj dizisinin user ile başlamasını bekler —
     // baştaki assistant mesajları (greeting) kırpılır.
     const firstUserIdx = messages.findIndex(m => m.role === 'user');

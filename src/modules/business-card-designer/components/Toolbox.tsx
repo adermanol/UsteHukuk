@@ -21,7 +21,7 @@ export function Toolbox({ onAdd, onSetBackground, currentBackground }: Props) {
       y: 100,
       width: 150,
       height: type === 'text' ? 40 : 150,
-      content: type === 'text' ? 'Yeni Metin' : type === 'qr' ? 'https://lawlm.com' : 'https://via.placeholder.com/150',
+      content: type === 'text' ? 'Yeni Metin' : type === 'qr' ? 'https://ustehukuk.com' : 'https://via.placeholder.com/150',
       style: {
         fontFamily: 'sans-serif',
         color: '#ffffff',

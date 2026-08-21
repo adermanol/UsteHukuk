@@ -59,9 +59,9 @@ export function DesktopSidebar() {
 
   return (
     <aside className="hidden md:flex flex-col w-[88px] fixed left-0 top-0 bottom-0 bg-[var(--background)]/70 backdrop-blur-3xl border-r border-border z-50 items-center py-8 gap-3 shadow-[4px_0_24px_rgba(0,0,0,0.5)] overflow-y-auto">
-      <Link href="/dashboard" title="LawLM" className="w-12 h-12 mb-4 bg-gradient-to-br from-[var(--primary)]/20 to-[var(--primary)]/5 rounded-2xl flex items-center justify-center border border-[var(--primary)]/30 shadow-[0_0_20px_rgba(205,163,114,0.15)] relative overflow-hidden group shrink-0">
+      <Link href="/dashboard" title="Üste Hukuk" className="w-12 h-12 mb-4 bg-gradient-to-br from-[var(--primary)]/20 to-[var(--primary)]/5 rounded-2xl flex items-center justify-center border border-[var(--primary)]/30 shadow-[0_0_20px_rgba(205,163,114,0.15)] relative overflow-hidden group shrink-0">
         <div className="absolute inset-0 bg-[var(--primary)] opacity-0 group-hover:opacity-20 transition-opacity duration-500" />
-        <img src="/logo-icon.svg" alt="LawLM" width={22} height={25} className="relative z-10 h-6 w-auto" />
+        <img src="/logo-icon.svg" alt="Üste Hukuk" width={22} height={25} className="relative z-10 h-6 w-auto" />
       </Link>
 
       <nav className="flex flex-col gap-3 w-full items-center flex-1">

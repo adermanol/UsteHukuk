@@ -10,9 +10,9 @@ export default function DashboardPage() {
       <div className="max-w-[1600px] mx-auto space-y-8">
         <header className="mb-10 pt-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <img src="/logo-icon.svg" alt="LawLM" width={40} height={46} className="h-12 w-auto hidden sm:block" />
+            <img src="/logo-icon.svg" alt="Üste Hukuk" width={40} height={46} className="h-12 w-auto hidden sm:block" />
             <div>
-              <h1 className="text-3xl md:text-5xl font-serif font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-400">LawLM Terminal</h1>
+              <h1 className="text-3xl md:text-5xl font-serif font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-400">Üste Hukuk Terminal</h1>
               <p className="text-lg md:text-xl text-muted-foreground mt-2 font-medium">Yapay Zeka Operasyon Sistemi</p>
             </div>
           </div>

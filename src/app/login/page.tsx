@@ -84,9 +84,9 @@ export default function LoginPage() {
         <div className="bg-[var(--background)] border border-border rounded-3xl p-10 shadow-2xl backdrop-blur-xl">
           <div className="flex flex-col items-center mb-10">
             <div className="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center border border-primary/30 shadow-[0_0_20px_rgba(0,0,0,0.5)] mb-6">
-              <img src="/logo-icon.svg" alt="LawLM" width={28} height={32} className="h-8 w-auto" />
+              <img src="/logo-icon.svg" alt="Üste Hukuk" width={28} height={32} className="h-8 w-auto" />
             </div>
-            <h1 className="text-3xl font-serif font-bold text-foreground mb-2">LawLM</h1>
+            <h1 className="text-3xl font-serif font-bold text-foreground mb-2">Üste Hukuk</h1>
             <p className="text-muted-foreground text-sm tracking-widest uppercase font-medium">
               {mfaChallenge ? 'Kimlik Doğrulama' : 'Terminal Yetkilendirmesi'}
             </p>

@@ -60,7 +60,7 @@ export function DraggableElement({ element, isSelected, snapToGrid, scale = 1, o
         return (
           <div style={{ width: '100%', height: '100%' }}>
             <QRCodeSVG 
-              value={element.content || 'https://lawlm.com'} 
+              value={element.content || 'https://ustehukuk.com'} 
               size={Math.min(element.width, element.height)} 
               fgColor={element.style.color || '#ffffff'}
               bgColor="transparent"

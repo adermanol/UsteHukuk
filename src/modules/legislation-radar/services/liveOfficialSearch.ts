@@ -20,7 +20,7 @@ const HEADERS = {
   'AdaletApplicationName': 'UyapMevzuat',
   'Origin': 'https://mevzuat.adalet.gov.tr',
   'Referer': 'https://mevzuat.adalet.gov.tr/',
-  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) LawLM-MevzuatRadari/1.0',
+  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) UsteHukuk-MevzuatRadari/1.0',
   'Accept': 'application/json, text/plain, */*',
 }
 

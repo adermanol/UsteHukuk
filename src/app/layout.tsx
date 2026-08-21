@@ -31,13 +31,13 @@ const notoSansArabic = Noto_Sans_Arabic({
 });
 
 const METADATA_BY_LOCALE: Record<Locale, { title: string; description: string }> = {
-  tr: { title: "LawLM - Hukuk Bürosu YZ", description: "Yapay Zeka Destekli Operasyon Sistemi" },
-  en: { title: "LawLM - Law Firm AI", description: "AI-Powered Operations System" },
-  ar: { title: "LawLM - نظام الذكاء الاصطناعي لمكتب المحاماة", description: "نظام تشغيل مدعوم بالذكاء الاصطناعي" },
-  fa: { title: "LawLM - سیستم هوش مصنوعی دفتر حقوقی", description: "سیستم عملیاتی مبتنی بر هوش مصنوعی" },
-  ru: { title: "LawLM - ИИ для юридической фирмы", description: "Операционная система на базе ИИ" },
-  fr: { title: "LawLM - IA pour Cabinet d'Avocats", description: "Système d'Exploitation Alimenté par l'IA" },
-  de: { title: "LawLM - KI für Anwaltskanzleien", description: "KI-gestütztes Betriebssystem" },
+  tr: { title: "Üste Hukuk Bürosu", description: "Yapay Zeka Destekli Operasyon Sistemi" },
+  en: { title: "Üste Hukuk Bürosu", description: "AI-Powered Operations System" },
+  ar: { title: "Üste Hukuk Bürosu", description: "نظام تشغيل مدعوم بالذكاء الاصطناعي" },
+  fa: { title: "Üste Hukuk Bürosu", description: "سیستم عملیاتی مبتنی بر هوش مصنوعی" },
+  ru: { title: "Üste Hukuk Bürosu", description: "Операционная система на базе ИИ" },
+  fr: { title: "Üste Hukuk Bürosu", description: "Système d'Exploitation Alimenté par l'IA" },
+  de: { title: "Üste Hukuk Bürosu", description: "KI-gestütztes Betriebssystem" },
 };
 
 export async function generateMetadata(): Promise<Metadata> {

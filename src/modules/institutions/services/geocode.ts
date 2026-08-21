@@ -9,7 +9,7 @@
  * kullanılır — toplu/otomatik sorgu yapılmaz.
  */
 
-const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) LawLM-KurumArama/1.0 (+https://lawlm.local; hukuk burosu ic kullanim araci)';
+const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) UsteHukuk-KurumArama/1.0 (+https://ustehukuk.com; hukuk burosu ic kullanim araci)';
 
 export interface GeocodeResult {
   displayName: string;

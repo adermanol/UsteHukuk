@@ -23,7 +23,7 @@ export interface SourceRunResult {
   durationMs: number;
 }
 
-const USER_AGENT = 'LawLM-MevzuatRadari/1.0 (+https://lawlm.local; hukuk burosu ic kullanim araci)';
+const USER_AGENT = 'UsteHukuk-MevzuatRadari/1.0 (+https://ustehukuk.com; hukuk burosu ic kullanim araci)';
 
 export async function fetchHtml(url: string): Promise<string> {
   const res = await fetch(url, {

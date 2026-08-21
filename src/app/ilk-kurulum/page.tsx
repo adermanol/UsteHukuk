@@ -6,7 +6,15 @@ import { FirstSetupForm } from './FirstSetupForm'
  * hesabını Supabase Dashboard'a hiç erişmeden açabilmesi için tek seferlik
  * kurulum ekranı. İlk hesap oluşturulduğu an bu sayfa kalıcı olarak
  * kilitlenir (aşağıdaki kontrol her ziyarette tekrar çalışır) — bkz.
- * createFirstAccount (src/lib/auth.ts) ve bootstrap_first_yonetici trigger'ı. */
+ * createFirstAccount (src/lib/auth.ts) ve bootstrap_first_yonetici trigger'ı.
+ *
+ * `force-dynamic` ŞART: bu sayfa hiçbir Request-time API (cookies/headers)
+ * kullanmadığı için, aksi halde Next.js bunu statik/prerendered kabul edip
+ * env değişkeni + profiles sayısı kontrolünü yalnızca BUILD anında bir kez
+ * çalıştırır ve sonucu dondurur — env değişkeni sonradan eklenip yeniden
+ * deploy edilse bile sayfa eski (yanlış) sonucu göstermeye devam eder. */
+export const dynamic = 'force-dynamic';
+
 export default async function IlkKurulumPage() {
   if (!isSupabaseAdminConfigured()) {
     return (
