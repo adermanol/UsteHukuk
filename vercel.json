@@ -1,0 +1,24 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/legal-radar",
+      "schedule": "0 4 * * *"
+    },
+    {
+      "path": "/api/cron/legal-codes-sync",
+      "schedule": "0 4 * * *"
+    },
+    {
+      "path": "/api/cron/agenda-reminders",
+      "schedule": "0 3 * * *"
+    },
+    {
+      "path": "/api/cron/case-law-sync",
+      "schedule": "0 5 * * *"
+    },
+    {
+      "path": "/api/cron/recurring-expenses",
+      "schedule": "0 6 * * *"
+    }
+  ]
+}

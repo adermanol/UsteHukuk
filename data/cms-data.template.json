@@ -1,0 +1,31 @@
+{
+  "general": {
+    "logoText": "Yeni Hukuk Bürosu",
+    "address": "",
+    "phone": "",
+    "email": "",
+    "whatsapp": "",
+    "footerTagline": { "tr": "", "en": "", "ar": "", "fa": "", "ru": "", "fr": "", "de": "" },
+    "socials": {
+      "facebook": { "url": "", "enabled": false },
+      "twitter": { "url": "", "enabled": false },
+      "linkedin": { "url": "", "enabled": false },
+      "instagram": { "url": "", "enabled": false }
+    },
+    "mapEmbedUrl": "",
+    "paymentUrl": ""
+  },
+  "hero": {
+    "title": { "tr": "", "en": "", "ar": "", "fa": "", "ru": "", "fr": "", "de": "" },
+    "subtitle": { "tr": "", "en": "", "ar": "", "fa": "", "ru": "", "fr": "", "de": "" }
+  },
+  "whyChooseUs": {
+    "title": { "tr": "", "en": "", "ar": "", "fa": "", "ru": "", "fr": "", "de": "" },
+    "subtitle": { "tr": "", "en": "", "ar": "", "fa": "", "ru": "", "fr": "", "de": "" },
+    "paragraph1": { "tr": "", "en": "", "ar": "", "fa": "", "ru": "", "fr": "", "de": "" },
+    "paragraph2": { "tr": "", "en": "", "ar": "", "fa": "", "ru": "", "fr": "", "de": "" }
+  },
+  "practiceAreas": [],
+  "team": [],
+  "legalPages": []
+}

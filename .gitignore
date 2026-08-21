@@ -39,3 +39,14 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# claude code local tool state (not part of the deployable app)
+/.claude/
+
+# reference/source material used to seed content — not application code
+/Kanunlar/
+/Tasks/
+/UsteHukuk/
+/Website_icerik/
+*.docx
+/UseHukukLogoIcon.svg
