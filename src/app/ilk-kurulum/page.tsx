@@ -14,6 +14,7 @@ import { FirstSetupForm } from './FirstSetupForm'
  * çalıştırır ve sonucu dondurur — env değişkeni sonradan eklenip yeniden
  * deploy edilse bile sayfa eski (yanlış) sonucu göstermeye devam eder. */
 export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
 
 export default async function IlkKurulumPage() {
   if (!isSupabaseAdminConfigured()) {
