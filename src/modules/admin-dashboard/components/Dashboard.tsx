@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { supabase, isMockSupabase } from '@/core/database/supabase'
 import { AlertTriangle, RotateCcw } from 'lucide-react'
 import { getTotalTokens, resetTokenCounter } from '@/lib/tokenCounter'
+import { isChatAvailable } from '@/lib/llmSettings'
 import { fetchCurrentProfile } from '@/modules/team'
 import { SystemErrorsCard } from './SystemErrorsCard'
 import { GettingStartedHint } from './GettingStartedHint'
@@ -36,6 +37,7 @@ export function Dashboard() {
   const [recentClients, setRecentClients] = useState<ClientRow[] | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [isPrivileged, setIsPrivileged] = useState(false)
+  const [llmAvailable, setLlmAvailable] = useState(true)
   const [resetMessage, setResetMessage] = useState<string | null>(null)
   const [isResetting, startReset] = useTransition()
 
@@ -68,11 +70,15 @@ export function Dashboard() {
       // gerçek toplamı sorgulamak yerine (ki 0 dönerdi, "hiç token
       // kullanılmadı" gibi yanlış bir izlenim verirdi) doğrudan "—" gösterilir.
       const tokenValue = privileged ? `${(await getTotalTokens()).toLocaleString('tr-TR')}` : '—';
+      // Gerçekten çalışan bir LLM sağlayıcısı yoksa (bkz. llmSettings.ts)
+      // bu istatistik büsbütün anlamsız — hiç göstermiyoruz.
+      const chatAvailable = await isChatAvailable().catch(() => true);
+      setLlmAvailable(chatAvailable);
 
       setStats([
         { title: 'Aktif Başvurular', value: `${clientCount || 0}` },
         { title: 'Açık Dosya', value: `${openCaseCount ?? '—'}` },
-        { title: 'İşlenen Token Sayısı', value: tokenValue },
+        ...(chatAvailable ? [{ title: 'İşlenen Token Sayısı', value: tokenValue }] : []),
         { title: 'Sistem Durumu', value: 'Online' }
       ])
       setLogs(logsData ?? [])
