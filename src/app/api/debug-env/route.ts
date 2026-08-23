@@ -13,6 +13,8 @@ export async function GET() {
   return NextResponse.json({
     hasSupabaseUrl: Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL),
     hasAnonKey: Boolean(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY),
+    hasPlainSupabaseUrl: Boolean(process.env.SUPABASE_URL),
+    hasPlainAnonKey: Boolean(process.env.SUPABASE_ANON_KEY),
     hasServiceRoleKey: Boolean(process.env.SUPABASE_SERVICE_ROLE_KEY),
     serviceRoleKeyLength: process.env.SUPABASE_SERVICE_ROLE_KEY?.length ?? 0,
     vercelEnv: process.env.VERCEL_ENV ?? null,

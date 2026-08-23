@@ -1,8 +1,11 @@
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://not-configured.supabase.co'
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'not-configured'
+// Bkz. supabase-admin.ts'deki not: server-only modüllerde `NEXT_PUBLIC_`
+// önekli değişkenler çalışma zamanında görünmeyebiliyor — önce önek'siz
+// düz isim denenir, sonra `NEXT_PUBLIC_` sürümüne düşülür.
+const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://not-configured.supabase.co'
+const supabaseAnonKey = process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'not-configured'
 
 // Server component'ler ve server action'lar için: session'ı Next.js cookie
 // deposundan okur/yazar, böylece proxy.ts (middleware) ile aynı session'ı paylaşır.

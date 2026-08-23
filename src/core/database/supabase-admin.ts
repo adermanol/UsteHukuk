@@ -1,6 +1,16 @@
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+// `SUPABASE_URL` (önek'siz) önceliklidir: canlıda gözlemlenen bir platform
+// davranışı nedeniyle `NEXT_PUBLIC_` önekli değişkenler, yalnızca istemci
+// paketine gömülmek üzere derleme-anında işlenir — saf sunucu-taraflı
+// (server-only) modüllerin çalışma zamanı `process.env`'inde HER ZAMAN
+// görünür olacakları garanti değildir (bkz. 2026-08-21 canlıya alma
+// teşhisi: /api/debug-env, aynı `NEXT_PUBLIC_SUPABASE_URL` okuması istemci
+// paketine bağlı dosyalarda çalışırken bu dosyada `undefined` döndü).
+// Önek'siz `SUPABASE_URL` eklenirse (aynı değerle) bu belirsizliği bypass
+// eder; eklenmezse `NEXT_PUBLIC_SUPABASE_URL`'e düşer (yerel geliştirme
+// `.env.local`'i değiştirmeden çalışmaya devam eder).
+const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL
 const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
 export const isSupabaseAdminConfigured = () => Boolean(supabaseUrl && serviceRoleKey)

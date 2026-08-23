@@ -2,8 +2,10 @@ import { createServerClient } from '@supabase/ssr'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+// Bkz. supabase-admin.ts'deki not — middleware Edge runtime'da çalışır,
+// bu da ayrı bir çalışma zamanı ortamıdır; aynı önlem burada da alınır.
+const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL
+const supabaseAnonKey = process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
 export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request })
