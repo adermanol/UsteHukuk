@@ -90,7 +90,10 @@ export function InstitutionsCsvImport({ onClose, onImported }: { onClose: () => 
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm" onClick={onClose}>
+    // z-[1100]: Leaflet'in kendi iç panelleri/kontrolleri (harita açıkken)
+    // varsayılan olarak z-index 1000'e kadar çıkıyor — z-50 bu diyaloğu
+    // haritanın ARKASINDA bırakıyordu.
+    <div className="fixed inset-0 z-[1100] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm" onClick={onClose}>
       <div className="glass-panel rounded-2xl border border-border p-6 w-full max-w-2xl max-h-[85vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
         <div className="flex items-center justify-between mb-4">
           <h3 className="font-serif text-lg text-foreground">CSV İçe Aktar</h3>
