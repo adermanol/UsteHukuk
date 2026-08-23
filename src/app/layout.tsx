@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Geist, Geist_Mono, Playfair_Display, Noto_Sans_Arabic } from "next/font/google";
 import "./globals.css";
 import { getServerLocale } from "@/lib/i18n/server";
@@ -72,15 +73,21 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} dir={getDirection(locale)} suppressHydrationWarning>
-      <head>
-        <script
+      <body className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} ${notoSansArabic.variable} antialiased`}>
+        {/* `beforeInteractive`: Next.js'in KENDİ garantisiyle bu, sayfadaki
+            başka HERHANGİ bir script'ten (async chunk'lar dahil) önce
+            çalışır — normal bir <head><script> ekleme denemesi bunu
+            garanti ETMEZ (Next.js kendi framework script'lerini kafanın
+            başına, bizim eklediğimiz özel <head> içeriğinden önce
+            enjekte ediyor; ilk denemede tam olarak bu yüzden bir yarış
+            durumu oluşup window.__SUPABASE_ENV__ çok geç set ediliyordu). */}
+        <Script
           id="__supabase_env__"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `window.__SUPABASE_ENV__=${JSON.stringify(supabaseEnv).replace(/</g, '\\u003c')};`,
           }}
         />
-      </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} ${notoSansArabic.variable} antialiased`}>
         <ThemeProvider defaultTheme={defaultTheme}>
           <LocaleProvider initialLocale={locale}>
             {children}
