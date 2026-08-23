@@ -1,4 +1,3 @@
-import { PDFParse } from 'pdf-parse'
 import { supabaseAdmin } from '@/core/database/supabase-admin'
 import { LegalCodeRegistryEntry, buildSourceUrl } from '../registry'
 
@@ -94,6 +93,18 @@ export async function importLegalCode(entry: LegalCodeRegistryEntry): Promise<Im
     if (!res.ok) throw new Error(`${sourceUrl} -> HTTP ${res.status}`);
     const arrayBuffer = await res.arrayBuffer();
 
+    // Statik `import { PDFParse } from 'pdf-parse'` yerine dinamik import:
+    // canlıya alma teşhisi (2026-08-24) — bu modülü (transitive olarak) içe
+    // aktaran HERHANGİ bir route, Vercel'in dağıtım ortamında pdf-parse/
+    // pdfjs-dist'in çalışma zamanı varlıklarıyla (worker/cmap dosyaları,
+    // next.config.ts'deki serverExternalPackages notuna bkz.) ilgili bir
+    // sorun nedeniyle MODÜL YÜKLEME anında çöküyordu — bu, çağıran kodun
+    // (ör. bu route'un auth kontrolü) hiç çalışma fırsatı bulamadığı,
+    // try/catch ile yakalanamayan bir hataydı (yerel ortamda tekrarlanamadı,
+    // yalnızca Vercel'de gözlemlendi). Dinamik import bu değerlendirmeyi
+    // gerçek çağrı anına, bu try bloğunun İÇİNE erteleyip en azından gerçek
+    // hatanın system_errors'a düzgün raporlanmasını sağlar.
+    const { PDFParse } = await import('pdf-parse');
     const parser = new PDFParse({ data: Buffer.from(arrayBuffer) });
     const { text } = await parser.getText();
 
