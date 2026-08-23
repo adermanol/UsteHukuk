@@ -5,8 +5,15 @@ import type { NextConfig } from "next";
 // domain'i remotePatterns'te tanımadan optimize/render edemez. Her büronun
 // kendi Supabase projesi olduğu için (beyaz etiket modeli) hostname env'den
 // türetilir, hardcode edilmez.
-const supabaseHostname = process.env.NEXT_PUBLIC_SUPABASE_URL
-  ? new URL(process.env.NEXT_PUBLIC_SUPABASE_URL).hostname
+//
+// Canlıya alma teşhisi (2026-08-21): bu projenin Vercel build ortamında
+// `NEXT_PUBLIC_SUPABASE_URL` build-anında güvenilir şekilde görünmüyor
+// (bkz. src/core/database/supabase.ts'deki uzun not — aynı platform
+// davranışı burada da geçerli, next.config.ts de build-anında çalışır).
+// Önek'siz `SUPABASE_URL` önce denenir.
+const resolvedSupabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseHostname = resolvedSupabaseUrl
+  ? new URL(resolvedSupabaseUrl).hostname
   : undefined;
 
 // Güvenlik denetimi (2026-08-11): next.config.ts'de hiç HTTP güvenlik
@@ -19,8 +26,8 @@ const supabaseHostname = process.env.NEXT_PUBLIC_SUPABASE_URL
 // yalnızca ihlalleri tarayıcı konsoluna yazar — birkaç gün gerçek kullanım
 // sonrası konsolda ihlal görülmezse `Content-Security-Policy-Report-Only`
 // başlığı `Content-Security-Policy` olarak değiştirilip enforce edilmelidir.
-const supabaseOrigin = process.env.NEXT_PUBLIC_SUPABASE_URL
-  ? new URL(process.env.NEXT_PUBLIC_SUPABASE_URL).origin
+const supabaseOrigin = resolvedSupabaseUrl
+  ? new URL(resolvedSupabaseUrl).origin
   : "https://*.supabase.co";
 
 const csp = [
