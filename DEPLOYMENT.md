@@ -79,6 +79,7 @@ Bu script:
 | Değişken | Kaynak |
 |---|---|
 | `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` | Adım 2'deki Supabase projesi |
+| `SUPABASE_URL`, `SUPABASE_ANON_KEY` | **Vercel'de zorunlu** (yerelde `next dev` için gerekmez) — sırasıyla `NEXT_PUBLIC_SUPABASE_URL`/`NEXT_PUBLIC_SUPABASE_ANON_KEY` ile AYNI değer, sadece önek'siz. Canlıya alma sırasında (2026-08-21) gözlemlendi: bu projenin Vercel build/runtime ortamında `NEXT_PUBLIC_` önekli değişkenler ne build-anında (`next.config.ts`, `next/image` alan adı izinleri) ne çalışma zamanında (server action'lar, route handler'lar, middleware) ne de tarayıcı paketinde güvenilir şekilde görünüyor — kod artık önce bu önek'siz ikizini deniyor, yoksa `NEXT_PUBLIC_` sürümüne düşüyor. **Bu ikisini eklemeden sistem canlıda çalışmaz** (giriş yapılamaz, görseller yüklenemez/gösterilemez, ilk kurulum ekranı yanlış "yapılandırılmadı" der) — kök nedeni netleşmedi, bu yalnızca gözlemlenmiş bir platform davranışına karşı savunma. |
 | `OPENAI_API_KEY` ve/veya `ANTHROPIC_API_KEY` | En az biri; hiçbiri yoksa sistem dürüstçe "yapılandırılmadı" durumunda çalışır |
 | `LM_STUDIO_BASE_URL`, `LM_STUDIO_MODEL`, `LM_STUDIO_EMBEDDING_MODEL` | Yalnızca büro yerel bir LLM (LM Studio) kullanmak isterse; aksi halde varsayılan değerler zararsızdır. `LM_STUDIO_EMBEDDING_MODEL`, Bilgi Bankası aramasının kullandığı yerel embedding modelidir (LM Studio'da ayrıca yüklenmesi gerekir — sohbet modeliyle aynı model değildir) |
 | `CRON_SECRET` | Rastgele bir dize; Mevzuat Radarı'nın günlük taraması için |
