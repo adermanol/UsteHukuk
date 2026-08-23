@@ -45,6 +45,22 @@ export async function generateMetadata(): Promise<Metadata> {
   return METADATA_BY_LOCALE[locale];
 }
 
+// Canlıya alma teşhisi (2026-08-21): bu ortamda `NEXT_PUBLIC_` önekli
+// değişkenler tarayıcı paketine build-anında güvenilir şekilde
+// gömülmüyor (bkz. supabase.ts'deki uzun not) — ama sunucu tarafında
+// (bu dosya bir Server Component) önek'siz `SUPABASE_URL`/`SUPABASE_ANON_KEY`
+// güvenilir şekilde okunabiliyor. O halde çözülmüş değeri, tarayıcı
+// paketi hiç yüklenmeden ÖNCE çalışan bir satır içi <script> ile
+// `window.__SUPABASE_ENV__`'e yazıp `supabase.ts`'nin oradan okumasını
+// sağlıyoruz — build-anındaki gömme mekanizmasına bağımlı kalmadan.
+// Anon anahtar bir sır DEĞİLDİR (RLS ile korunur), tarayıcıya açıkça
+// gönderilmesi amaçlanmıştır.
+function resolvePublicSupabaseEnv() {
+  const url = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+  const anonKey = process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+  return { url, anonKey };
+}
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -52,9 +68,18 @@ export default async function RootLayout({
 }>) {
   const locale = await getServerLocale();
   const defaultTheme = await getThemeSetting();
+  const supabaseEnv = resolvePublicSupabaseEnv();
 
   return (
     <html lang={locale} dir={getDirection(locale)} suppressHydrationWarning>
+      <head>
+        <script
+          id="__supabase_env__"
+          dangerouslySetInnerHTML={{
+            __html: `window.__SUPABASE_ENV__=${JSON.stringify(supabaseEnv).replace(/</g, '\\u003c')};`,
+          }}
+        />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} ${notoSansArabic.variable} antialiased`}>
         <ThemeProvider defaultTheme={defaultTheme}>
           <LocaleProvider initialLocale={locale}>

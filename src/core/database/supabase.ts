@@ -1,16 +1,28 @@
 import { createBrowserClient } from '@supabase/ssr'
 
-// Bkz. supabase-admin.ts'deki not. Bu dosya hem tarayıcıda (client bundle,
-// NEXT_PUBLIC_ değişkenleri orada doğru gömülür) hem de sunucu tarafında
+declare global {
+  interface Window {
+    __SUPABASE_ENV__?: { url: string; anonKey: string };
+  }
+}
+
+// Bkz. supabase-admin.ts'deki not. Bu dosya hem tarayıcıda hem sunucuda
 // (`isMockSupabase()` üzerinden `src/lib/auth.ts`'teki `login()` server
-// action'ı gibi "use server" bağlamlarından) kullanılıyor — o ikinci
-// bağlamda `NEXT_PUBLIC_` değişkenleri çalışma zamanında görünmeyebiliyor.
-// Tarayıcıda `SUPABASE_URL` (önek'siz) hiçbir zaman client paketine
-// gömülmez (bilerek — sır olmayan ama yine de NEXT_PUBLIC_ dışı bir
-// değişken), bu yüzden orada güvenle `undefined` kalıp ikinci ifadeye
-// (doğru gömülen NEXT_PUBLIC_ sürümüne) düşer.
-const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseAnonKey = process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+// action'ı gibi "use server" bağlamlarından) kullanılıyor.
+//
+// Canlıya alma teşhisi (2026-08-21): bu ortamda `NEXT_PUBLIC_` önekli
+// değişkenler ne sunucu tarafında ne de tarayıcı paketinde build-anında
+// güvenilir şekilde gömülmüyor/görünüyor — ne olduğu netleşmedi ama
+// gözlemlenen davranış bu. Bu yüzden öncelik sırası: (1) `window.__SUPABASE_ENV__`
+// (kök layout'ta bir Server Component tarafından yazılan, sunucu tarafında
+// güvenilir şekilde okunan değer — bkz. src/app/layout.tsx), (2) önek'siz
+// `SUPABASE_URL`/`SUPABASE_ANON_KEY` (sunucu bağlamları için, örn. bu
+// dosyanın "use server" bir dosyadan içe aktarıldığı durumlar), (3) en son
+// çare olarak `NEXT_PUBLIC_` sürümleri (yerel `next dev` için — orada bu
+// sorun gözlemlenmedi).
+const runtimeEnv = typeof window !== 'undefined' ? window.__SUPABASE_ENV__ : undefined;
+const supabaseUrl = runtimeEnv?.url || process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL
+const supabaseAnonKey = runtimeEnv?.anonKey || process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
 // Supabase yapılandırılmamışken (env değişkenleri eksik) tüm servisler bu
 // bayrağı kontrol edip gerçek bir sorgu göndermeden önce çıkmalı.
