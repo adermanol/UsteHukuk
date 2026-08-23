@@ -36,8 +36,14 @@ export const callLLM = async ({ prompt, context, messages, system, moduleName = 
   const { activeProvider } = await getLlmSettings();
   const provider = resolveProvider(activeProvider, hasOpenAI, hasAnthropic);
 
+  // Canlıya alma hatası (2026-08-23): `LM_STUDIO_BASE_URL` ayarlanmamışsa
+  // varsayılan (`http://localhost:1234/v1`) bir bulut ortamında ASLA
+  // erişilebilir değildir — denemeye bile girmeden aynı "yapılandırılmadı"
+  // yoluna düş, ki hem gereksiz bir ECONNREFUSED hatası/sistem kaydı
+  // oluşmasın hem de kullanıcı 30sn'lik zaman aşımını beklemesin.
+  const missingBaseUrlForLmStudio = provider === 'lmstudio' && !process.env.LM_STUDIO_BASE_URL;
   const missingKeyForSelection =
-    (provider === 'openai' && !hasOpenAI) || (provider === 'anthropic' && !hasAnthropic);
+    (provider === 'openai' && !hasOpenAI) || (provider === 'anthropic' && !hasAnthropic) || missingBaseUrlForLmStudio;
 
   if (!provider || missingKeyForSelection) {
     console.warn(`[LLM Gateway] Kullanılabilir sağlayıcı yok. Modül: ${moduleName}`);

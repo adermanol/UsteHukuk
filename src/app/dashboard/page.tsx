@@ -3,8 +3,13 @@ import { ChatWidget } from '@/modules/intake-assistant'
 import { DocumentWizardPreview } from '@/modules/document-wizard'
 import { SearchInterface } from '@/modules/knowledge-base'
 import { Dashboard } from '@/modules/admin-dashboard'
+import { isChatAvailable } from '@/lib/llmSettings'
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  // Gerçekten çalışacak bir LLM sağlayıcısı yoksa (bkz. llmSettings.ts'deki
+  // not) sohbet widget'ı hiç gösterilmez — kullanıcıya boş/hatalı bir
+  // sohbet ekranı sunmak yerine.
+  const chatAvailable = await isChatAvailable();
   return (
     <div className="p-4 md:p-8">
       <div className="max-w-[1600px] mx-auto space-y-8">
@@ -57,7 +62,7 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      <ChatWidget hideMobileTrigger />
+      {chatAvailable && <ChatWidget hideMobileTrigger />}
     </div>
   );
 }

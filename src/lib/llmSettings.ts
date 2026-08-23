@@ -72,3 +72,28 @@ export async function getAvailableProviders(): Promise<Record<LlmProvider, boole
     lmstudio: true,
   };
 }
+
+/**
+ * Canlıya alma hatası (2026-08-23): aktif sağlayıcı 'lmstudio' olarak
+ * kalmışken (yerel geliştirmeden kalan bir ayar) canlıda gerçek bir sohbet
+ * denemesi `LM_STUDIO_BASE_URL` varsayılanı olan localhost'a bağlanmaya
+ * çalışıp ECONNREFUSED ile patlıyor, sistem hatası kaydı düşüyor ve
+ * kullanıcıya boş/anlamsız bir sohbet ekranı gösteriyordu. Sohbet
+ * widget'ını (ve genel olarak sohbet özelliğini) yalnızca GERÇEKTEN
+ * çalışacak bir sağlayıcı varken göster: bulut sağlayıcılardan biri
+ * (anahtar tanımlı) VEYA LM Studio için `LM_STUDIO_BASE_URL` açıkça
+ * ayarlanmış (varsayılan localhost'a bırakılmamış — bu, Vercel gibi bir
+ * bulut ortamında asla erişilebilir olmaz).
+ */
+export async function isChatAvailable(): Promise<boolean> {
+  const hasAnthropic = !!process.env.ANTHROPIC_API_KEY;
+  const hasOpenAI = !!process.env.OPENAI_API_KEY;
+  const hasReachableLmStudio = !!process.env.LM_STUDIO_BASE_URL;
+  if (hasAnthropic || hasOpenAI) return true;
+
+  const { activeProvider } = await getLlmSettings();
+  if (activeProvider === 'lmstudio') return hasReachableLmStudio;
+  // activeProvider null/otomatik ise ve bulut anahtarı yoksa, geriye
+  // yalnızca LM Studio kalır — aynı erişilebilirlik koşulu geçerli.
+  return hasReachableLmStudio;
+}

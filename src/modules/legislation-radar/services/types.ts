@@ -30,6 +30,15 @@ export async function fetchHtml(url: string): Promise<string> {
     headers: { 'User-Agent': USER_AGENT, 'Accept-Language': 'tr-TR,tr;q=0.9' },
     // Devlet siteleri bazen önbelleklenmiş eski içerik döndürür; her taramada taze veri iste.
     cache: 'no-store',
+    // Canlıya alma hatası (2026-08-23): bir zaman aşımı olmadan, yavaş/
+    // bot-korumalı bir devlet sitesi bu fetch'i süresiz askıda bırakabiliyor
+    // — Promise.all ile paralel çalışan 4 kaynaktan biri asılı kalınca
+    // Vercel'in platform-seviyesi çalışma süresi sınırı tüm server action'ı
+    // öldürüyor (kendi try/catch'imizin hiç yakalayamayacağı bir kesinti —
+    // kullanıcıya jenerik "A server error occurred" olarak görünüyordu).
+    // 15sn'lik bir üst sınır, tek bir yavaş kaynağın diğerlerini/tüm
+    // taramayı asla asılı bırakmamasını garanti eder.
+    signal: AbortSignal.timeout(15_000),
   });
   if (!res.ok) {
     throw new Error(`${url} -> HTTP ${res.status}`);
