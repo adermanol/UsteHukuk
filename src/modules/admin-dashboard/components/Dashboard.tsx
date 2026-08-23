@@ -145,38 +145,40 @@ export function Dashboard() {
       {isPrivileged && <SystemErrorsCard />}
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-        <Card className="col-span-4">
-          <CardHeader>
-            <CardTitle>Sistem Aktiviteleri</CardTitle>
-            <CardDescription>Son AI kullanım detayları (llm_logs).</CardDescription>
-          </CardHeader>
-          <CardContent>
-            {error && <p className="text-sm text-destructive">{error}</p>}
-            {!error && !isPrivileged && logs !== null && (
-              <p className="text-sm text-muted-foreground">Bu bölüm yalnızca yönetici/master rolüne açıktır — AI kullanım kayıtları müvekkil detayları içerebilir.</p>
-            )}
-            {!error && logs === null && !isMockSupabase() && (
-              <p className="text-sm text-muted-foreground">Yükleniyor...</p>
-            )}
-            {!error && isMockSupabase() && (
-              <p className="text-sm text-muted-foreground">Yapılandırılmadı.</p>
-            )}
-            {!error && isPrivileged && logs !== null && logs.length === 0 && (
-              <p className="text-sm text-muted-foreground">Henüz kayıt yok.</p>
-            )}
-            {!error && isPrivileged && logs && logs.length > 0 && (
-              <ul className="space-y-2">
-                {logs.map(log => (
-                  <li key={log.id} className="flex justify-between text-sm border-b border-border/50 pb-2 last:border-0">
-                    <span className="text-muted-foreground">{log.module}</span>
-                    <span className="font-mono">{log.tokens_used} token</span>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </CardContent>
-        </Card>
-        <Card className="col-span-3">
+        {llmAvailable && (
+          <Card className="col-span-4">
+            <CardHeader>
+              <CardTitle>Sistem Aktiviteleri</CardTitle>
+              <CardDescription>Son AI kullanım detayları (llm_logs).</CardDescription>
+            </CardHeader>
+            <CardContent>
+              {error && <p className="text-sm text-destructive">{error}</p>}
+              {!error && !isPrivileged && logs !== null && (
+                <p className="text-sm text-muted-foreground">Bu bölüm yalnızca yönetici/master rolüne açıktır — AI kullanım kayıtları müvekkil detayları içerebilir.</p>
+              )}
+              {!error && logs === null && !isMockSupabase() && (
+                <p className="text-sm text-muted-foreground">Yükleniyor...</p>
+              )}
+              {!error && isMockSupabase() && (
+                <p className="text-sm text-muted-foreground">Yapılandırılmadı.</p>
+              )}
+              {!error && isPrivileged && logs !== null && logs.length === 0 && (
+                <p className="text-sm text-muted-foreground">Henüz kayıt yok.</p>
+              )}
+              {!error && isPrivileged && logs && logs.length > 0 && (
+                <ul className="space-y-2">
+                  {logs.map(log => (
+                    <li key={log.id} className="flex justify-between text-sm border-b border-border/50 pb-2 last:border-0">
+                      <span className="text-muted-foreground">{log.module}</span>
+                      <span className="font-mono">{log.tokens_used} token</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </CardContent>
+          </Card>
+        )}
+        <Card className={llmAvailable ? 'col-span-3' : 'col-span-7'}>
           <CardHeader>
             <CardTitle>Son Başvurular</CardTitle>
             <CardDescription>Yakın zamanda kaydedilen müvekkil adayları (clients).</CardDescription>
