@@ -25,6 +25,18 @@ export class ApplicationsNotConfiguredError extends Error {
   }
 }
 
+/** Panel girişinde "henüz kontrol edilmemiş yeni başvuru" bildirimi için —
+ * yalnızca sayıyı döner, tüm satırları çekmez. */
+export async function fetchPendingApplicationsCount(): Promise<number> {
+  if (isMockSupabase()) return 0;
+  const { count, error } = await supabase
+    .from('clients')
+    .select('id', { count: 'exact', head: true })
+    .eq('status', 'pending');
+  if (error) return 0;
+  return count ?? 0;
+}
+
 export async function fetchApplications(limit = 100): Promise<ApplicationRow[]> {
   if (isMockSupabase()) {
     throw new ApplicationsNotConfiguredError('Supabase yapılandırılmadı: başvurular alınamadı.');

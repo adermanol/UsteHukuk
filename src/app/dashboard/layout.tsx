@@ -1,6 +1,7 @@
 import { LivingBackground } from "@/components/layout/LivingBackground";
 import { DesktopSidebar } from '@/components/layout/DesktopSidebar';
 import { MobileTabBar } from '@/components/layout/MobileTabBar';
+import { NewApplicationsAlert } from '@/modules/applications/components/NewApplicationsAlert';
 
 export default function DashboardLayout({
   children,
@@ -17,6 +18,7 @@ export default function DashboardLayout({
         </main>
         <MobileTabBar />
       </div>
+      <NewApplicationsAlert />
     </>
   );
 }
