@@ -1,6 +1,5 @@
 export { CASE_LAW_SEARCH_REGISTRY } from './registry'
 export type { CaseLawSearchEntry } from './registry'
-export { triggerCaseLawSync } from './services/triggerSync'
 export { syncAllCaseLaw, CaseLawNotConfiguredError as CaseLawSyncNotConfiguredError } from './services/syncAllCaseLaw'
 export { searchCaseLaw, fetchCaseLawStatus, fetchDecisionsForKeyword, CaseLawNotConfiguredError } from './services/searchCaseLaw'
 export type { CaseLawResult, CaseLawStatusRow } from './services/searchCaseLaw'

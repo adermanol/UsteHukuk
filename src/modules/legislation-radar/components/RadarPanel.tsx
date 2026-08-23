@@ -10,14 +10,12 @@ import {
   LegalFeedRunRow,
   LegalFeedNotConfiguredError,
 } from '../services/feedRepository'
-import { triggerLegalRadarScan } from '../services/triggerScan'
 import { LegalFeedSource } from '../services/types'
 import {
   fetchTrackedCodes, fetchArticlesForCode, TrackedCodeStatus, LegalCodeArticleResult, LegalCodesNotConfiguredError,
 } from '@/modules/legal-codes/services/searchArticles'
-import { triggerLegalCodesSync } from '@/modules/legal-codes/services/triggerSync'
 import {
-  fetchCaseLawStatus, triggerCaseLawSync, fetchDecisionsForKeyword,
+  fetchCaseLawStatus, fetchDecisionsForKeyword,
   CaseLawStatusRow, CaseLawResult, CaseLawNotConfiguredError,
 } from '@/modules/case-law'
 import { labelFor } from '@/modules/practice-areas'
@@ -137,18 +135,24 @@ export function RadarPanel() {
   const handleCodesSync = () => {
     setCodesSyncMessage(null);
     startCodesTransition(async () => {
-      const result = await triggerLegalCodesSync();
-      if (result.success) {
-        const total = result.results.reduce((acc, r) => acc + r.articleCount, 0);
-        const failed = result.results.filter(r => r.status === 'error');
-        setCodesSyncMessage(
-          failed.length > 0
-            ? `Senkronizasyon tamamlandı: ${total} madde. ${failed.length} kanunda hata oluştu.`
-            : `Senkronizasyon tamamlandı: ${total} madde güncellendi.`
-        );
-        await loadTrackedCodes();
-      } else {
-        setCodesSyncMessage(result.message);
+      try {
+        const res = await fetch('/api/legal-codes-sync', { method: 'POST' });
+        const result = await res.json();
+        if (result.success) {
+          const total = result.results.reduce((acc: number, r: { articleCount: number }) => acc + r.articleCount, 0);
+          const failed = result.results.filter((r: { status: string }) => r.status === 'error');
+          setCodesSyncMessage(
+            failed.length > 0
+              ? `Senkronizasyon tamamlandı: ${total} madde. ${failed.length} kanunda hata oluştu.`
+              : `Senkronizasyon tamamlandı: ${total} madde güncellendi.`
+          );
+          await loadTrackedCodes();
+        } else {
+          setCodesSyncMessage(result.error || 'Senkronizasyon sırasında beklenmeyen bir hata oluştu.');
+        }
+      } catch (err) {
+        console.error('Legal codes sync request failed:', err);
+        setCodesSyncMessage('Senkronizasyon sırasında beklenmeyen bir hata oluştu.');
       }
     });
   };
@@ -188,18 +192,24 @@ export function RadarPanel() {
   const handleCaseLawSync = () => {
     setCaseLawSyncMessage(null);
     startCaseLawTransition(async () => {
-      const result = await triggerCaseLawSync();
-      if (result.success) {
-        const total = result.results.reduce((acc, r) => acc + r.imported, 0);
-        const failed = result.results.filter(r => r.status === 'error');
-        setCaseLawSyncMessage(
-          failed.length > 0
-            ? `Senkronizasyon tamamlandı: ${total} yeni karar. ${failed.length} taramada hata oluştu.`
-            : `Senkronizasyon tamamlandı: ${total} yeni karar eklendi.`
-        );
-        await loadCaseLawStatus();
-      } else {
-        setCaseLawSyncMessage(result.message);
+      try {
+        const res = await fetch('/api/case-law-sync', { method: 'POST' });
+        const result = await res.json();
+        if (result.success) {
+          const total = result.results.reduce((acc: number, r: { imported: number }) => acc + r.imported, 0);
+          const failed = result.results.filter((r: { status: string }) => r.status === 'error');
+          setCaseLawSyncMessage(
+            failed.length > 0
+              ? `Senkronizasyon tamamlandı: ${total} yeni karar. ${failed.length} taramada hata oluştu.`
+              : `Senkronizasyon tamamlandı: ${total} yeni karar eklendi.`
+          );
+          await loadCaseLawStatus();
+        } else {
+          setCaseLawSyncMessage(result.error || 'Senkronizasyon sırasında beklenmeyen bir hata oluştu.');
+        }
+      } catch (err) {
+        console.error('Case law sync request failed:', err);
+        setCaseLawSyncMessage('Senkronizasyon sırasında beklenmeyen bir hata oluştu.');
       }
     });
   };
@@ -259,18 +269,30 @@ export function RadarPanel() {
   const handleScan = () => {
     setScanMessage(null);
     startTransition(async () => {
-      const result = await triggerLegalRadarScan();
-      if (result.success) {
-        const total = result.results.reduce((acc, r) => acc + r.items.length, 0);
-        const failed = result.results.filter(r => r.status === 'error');
-        setScanMessage(
-          failed.length > 0
-            ? `Tarama tamamlandı: ${total} öğe. ${failed.length} kaynakta hata oluştu.`
-            : `Tarama tamamlandı: ${total} yeni/güncel öğe bulundu.`
-        );
-        await load();
-      } else {
-        setScanMessage(result.message);
+      try {
+        // Server Action yerine Route Handler kullanılır: "use server"
+        // dosyaları dosya-başına `maxDuration` export edemez, bu yüzden
+        // Vercel'in platform varsayılan süre sınırında (genelde 10sn)
+        // kesilip kendi try/catch'imizin hiç yakalayamayacağı bir çökmeye
+        // (jenerik "A server error occurred") yol açıyordu. Bu route'un
+        // (bkz. /api/legislation-radar-scan) açık `maxDuration = 60`'ı var.
+        const res = await fetch('/api/legislation-radar-scan', { method: 'POST' });
+        const result = await res.json();
+        if (result.success) {
+          const total = result.results.reduce((acc: number, r: { items: unknown[] }) => acc + r.items.length, 0);
+          const failed = result.results.filter((r: { status: string }) => r.status === 'error');
+          setScanMessage(
+            failed.length > 0
+              ? `Tarama tamamlandı: ${total} öğe. ${failed.length} kaynakta hata oluştu.`
+              : `Tarama tamamlandı: ${total} yeni/güncel öğe bulundu.`
+          );
+          await load();
+        } else {
+          setScanMessage(result.error || 'Tarama sırasında beklenmeyen bir hata oluştu.');
+        }
+      } catch (err) {
+        console.error('Radar scan request failed:', err);
+        setScanMessage('Tarama sırasında beklenmeyen bir hata oluştu.');
       }
     });
   };
