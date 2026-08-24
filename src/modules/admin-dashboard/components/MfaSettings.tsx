@@ -32,7 +32,12 @@ export function MfaSettings() {
       setMessage('Kurulum başlatılamadı: ' + (error?.message ?? 'bilinmeyen hata'));
       return;
     }
-    setEnrolling({ factorId: data.id, qrCode: `data:image/svg+xml;utf-8,${encodeURIComponent(data.totp.qr_code)}`, secret: data.totp.secret });
+    // `data.totp.qr_code` SDK tarafından zaten kullanıma hazır tam bir data
+    // URI olarak döner (bkz. @supabase/auth-js tipleri/örnekleri: doğrudan
+    // <img src={data.totp.qr_code}> kullanılır) — burada tekrar bir data
+    // URI'nin içine sarmak geçersiz, iç içe/bozuk bir adres üretip görselin
+    // hiç yüklenmemesine neden oluyordu.
+    setEnrolling({ factorId: data.id, qrCode: data.totp.qr_code, secret: data.totp.secret });
   };
 
   const confirmEnroll = async () => {
