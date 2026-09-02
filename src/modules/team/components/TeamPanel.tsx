@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState, useTransition } from 'react'
-import { AlertTriangle, ShieldCheck, User, GraduationCap, Crown } from 'lucide-react'
+import { AlertTriangle, ShieldCheck, User, GraduationCap, Crown, UserPlus, Send } from 'lucide-react'
 import {
   fetchTeamMembers,
   fetchCurrentProfile,
@@ -43,6 +43,11 @@ export function TeamPanel() {
   const [error, setError] = useState<string | null>(null);
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
+  const [isInviting, setIsInviting] = useState(false);
+  const [inviteEmail, setInviteEmail] = useState('');
+  const [inviteFullName, setInviteFullName] = useState('');
+  const [inviteMessage, setInviteMessage] = useState<string | null>(null);
+  const [isSendingInvite, setIsSendingInvite] = useState(false);
 
   const load = async () => {
     setError(null);
@@ -76,6 +81,33 @@ export function TeamPanel() {
         setItems(prev => prev?.map(i => (i.id === id ? { ...i, role } : i)) ?? prev);
       }
     });
+  };
+
+  const handleInvite = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setInviteMessage(null);
+    setIsSendingInvite(true);
+    try {
+      const res = await fetch('/api/team-invite', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: inviteEmail, fullName: inviteFullName }),
+      });
+      const result = await res.json();
+      if (result.success) {
+        setInviteMessage(`Davet e-postası ${inviteEmail} adresine gönderildi. Bağlantıya tıklayıp şifresini belirledikten sonra burada listede görünecek — rolünü (yönetici/master dahil) o zaman atayabilirsiniz.`);
+        setInviteEmail('');
+        setInviteFullName('');
+        setIsInviting(false);
+      } else {
+        setInviteMessage(result.error || 'Davet gönderilemedi.');
+      }
+    } catch (err) {
+      console.error('Invite request failed:', err);
+      setInviteMessage('Davet gönderilirken beklenmeyen bir hata oluştu.');
+    } finally {
+      setIsSendingInvite(false);
+    }
   };
 
   const handleActiveToggle = (id: string, isActive: boolean) => {
@@ -114,6 +146,57 @@ export function TeamPanel() {
 
   return (
     <div className="space-y-3">
+      <button
+        onClick={() => { setIsInviting(v => !v); setInviteMessage(null); }}
+        className="flex items-center justify-center gap-2 text-sm font-medium px-3 py-2.5 rounded-xl border border-dashed border-[var(--primary)]/30 text-[var(--primary)] hover:bg-[var(--primary)]/10 transition-colors w-full sm:w-auto"
+      >
+        <UserPlus size={16} /> Yeni Üye Davet Et
+      </button>
+
+      {isInviting && (
+        <form onSubmit={handleInvite} className="glass-card p-5 space-y-3">
+          <h3 className="font-serif text-lg text-foreground">Ekibe Davet Gönder</h3>
+          <p className="text-xs text-muted-foreground">
+            Girdiğiniz e-posta adresine bir davet bağlantısı gönderilir. Davet edilen kişi bağlantıya tıklayıp kendi şifresini belirledikten sonra bu listede görünür — varsayılan rolü &ldquo;avukat&rdquo;tır, aşağıdaki rol menüsünden istediğiniz role (yönetici/master dahil) yükseltebilirsiniz.
+          </p>
+          <div>
+            <label className="text-xs text-muted-foreground mb-1 block">Ad Soyad</label>
+            <input
+              type="text"
+              value={inviteFullName}
+              onChange={e => setInviteFullName(e.target.value)}
+              placeholder="Av. Adı Soyadı"
+              required
+              className="w-full bg-muted border border-border rounded-lg px-3 py-2 text-sm text-foreground outline-none focus:border-[var(--primary)]/40"
+            />
+          </div>
+          <div>
+            <label className="text-xs text-muted-foreground mb-1 block">E-posta</label>
+            <input
+              type="email"
+              value={inviteEmail}
+              onChange={e => setInviteEmail(e.target.value)}
+              placeholder="avukat@buro.com"
+              required
+              className="w-full bg-muted border border-border rounded-lg px-3 py-2 text-sm text-foreground outline-none focus:border-[var(--primary)]/40"
+            />
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              type="submit"
+              disabled={isSendingInvite}
+              className="flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full bg-[var(--primary)] text-[var(--background)] hover:bg-[var(--primary)]/90 transition-colors disabled:opacity-50"
+            >
+              <Send size={12} /> {isSendingInvite ? 'Gönderiliyor...' : 'Daveti Gönder'}
+            </button>
+            <button type="button" onClick={() => setIsInviting(false)} className="text-xs font-medium px-3 py-1.5 rounded-full border border-border text-muted-foreground hover:text-foreground transition-colors">
+              İptal
+            </button>
+          </div>
+        </form>
+      )}
+      {inviteMessage && <p className="text-xs text-muted-foreground">{inviteMessage}</p>}
+
       {items === null && <p className="text-sm text-muted-foreground">Yükleniyor...</p>}
       {items !== null && items.length === 0 && (
         <p className="text-sm text-muted-foreground">Henüz ekip üyesi yok.</p>
