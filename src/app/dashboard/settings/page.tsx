@@ -1,5 +1,5 @@
-import { LLMProviderSelector, ThemeSelector, NavOrderSettings, MfaSettings, PasskeySettings } from '@/modules/admin-dashboard'
-import { Settings, Palette, ListOrdered, ShieldCheck, Fingerprint } from 'lucide-react'
+import { LLMProviderSelector, ThemeSelector, NavOrderSettings, MfaSettings, PasskeySettings, PasswordSettings } from '@/modules/admin-dashboard'
+import { Settings, Palette, ListOrdered, ShieldCheck, Fingerprint, KeyRound } from 'lucide-react'
 
 export default function SettingsPage() {
   return (
@@ -23,6 +23,12 @@ export default function SettingsPage() {
           <h2 className="font-serif text-xl text-foreground mb-1 flex items-center gap-2"><Palette size={18} className="text-[var(--primary)]" /> Görünüm</h2>
           <p className="text-sm text-muted-foreground mb-4">Tarayıcınız için hemen değiştirin veya büro geneli varsayılanı belirleyin.</p>
           <ThemeSelector />
+        </section>
+
+        <section>
+          <h2 className="font-serif text-xl text-foreground mb-1 flex items-center gap-2"><KeyRound size={18} className="text-[var(--primary)]" /> Şifre</h2>
+          <p className="text-sm text-muted-foreground mb-4">Hesabınızın şifresini değiştirin.</p>
+          <PasswordSettings />
         </section>
 
         <section>
