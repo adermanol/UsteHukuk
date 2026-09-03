@@ -1,0 +1,32 @@
+name: Mevzuat Radarı — harici kaynak toplayıcı
+
+# Resmî Gazete / Mevzuat Bilgi Sistemi / Rekabet Kurumu Vercel'in sunucu
+# IP'lerinden engellendiği için burada, GitHub Actions runner'ında taranıyor
+# ve /api/cron/legal-radar-external route'una POST ediliyor. KVKK ve diğer
+# kaynaklar (case_law, legal_codes) bundan etkilenmiyor, Vercel cron'larında
+# (vercel.json) taranmaya devam ediyor. Detay: DEPLOYMENT.md.
+
+on:
+  schedule:
+    # Vercel'deki /api/cron/legal-radar (KVKK, 04:00 UTC) tamamlandıktan sonra
+    - cron: '30 4 * * *'
+  workflow_dispatch:
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Bağımlılıkları kur
+        run: npm ci --omit=dev
+
+      - name: Tara ve gönder
+        env:
+          RADAR_INGEST_URL: ${{ secrets.RADAR_INGEST_URL }}
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        run: node scripts/legal-radar-scrape.mjs
