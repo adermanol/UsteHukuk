@@ -68,9 +68,13 @@ export function MobileTabBar() {
 
   return (
     <>
-      {/* 5 gerçek sekme (2 sol + Daha Fazla + 2 sağ) + FAB için 1 boş hücre
-          = 6 eşit genişlikte grid hücresi — hücre sayısı gerçek çocuk
-          sayısıyla (6) birebir eşleşmeli, aksi halde taşıp iki satıra çıkar. */}
+      {/* 6 eşit genişlikte hücre: 2 sol sekme + Hızlı Ekle + 2 sağ sekme +
+          Daha Fazla. Kullanıcı geri bildirimiyle (2026-09-03) "Hızlı Ekle"
+          artık pilin üstünden taşan büyük bir FAB değil, diğer sekmelerle
+          AYNI boyutta, grid akışının İÇİNDE sıradan bir ikon — düzensiz
+          duran taşma/farklı boyut sorunu böylece ortadan kalktı. Hücre
+          sayısı gerçek çocuk sayısıyla (6) birebir eşleşmeli, aksi halde
+          taşıp iki satıra çıkar. */}
       <div
         className="md:hidden print:hidden fixed left-3 right-3 h-14 bg-[var(--background)]/85 backdrop-blur-2xl border border-border rounded-full z-50 shadow-[0_10px_35px_rgba(0,0,0,0.4)]"
         style={{ bottom: 'calc(0.75rem + env(safe-area-inset-bottom))' }}
@@ -88,8 +92,13 @@ export function MobileTabBar() {
               </Link>
             );
           })}
-          {/* FAB'ın altında boş bir grid hücresi — dokunma alanı çakışmasın diye */}
-          <div />
+          <button
+            onClick={() => setQuickAddOpen(true)}
+            className={`${tabClass(false)} relative mx-auto text-[var(--primary)]`}
+            aria-label="Hızlı ekle"
+          >
+            <Plus size={20} />
+          </button>
           {primaryRight.map(({ id, href, icon: Icon }) => {
             const active = isActive(href);
             return (
@@ -115,19 +124,6 @@ export function MobileTabBar() {
           </button>
         </div>
 
-        {/* Merkez FAB — "Hızlı Ekle" menüsünü açar (masraf, süre hesabı,
-            duruşma, not, sohbet). Grid akışının dışında, her zaman tam
-            ortada; pil çubuğun üstünden taşarak (-top-5) klasik "raised
-            FAB" görünümünü korur. */}
-        <div className="absolute left-1/2 -translate-x-1/2 -top-5">
-          <button
-            className="w-12 h-12 bg-[var(--primary)] text-[var(--background)] rounded-full flex items-center justify-center shadow-[0_0_24px_rgba(205,163,114,0.45)] border border-border hover:scale-105 transition-transform"
-            onClick={() => setQuickAddOpen(true)}
-            aria-label="Hızlı ekle"
-          >
-            <Plus size={24} />
-          </button>
-        </div>
       </div>
 
       <BottomSheet open={moreOpen} onClose={() => setMoreOpen(false)} title="Diğer Bölümler">
