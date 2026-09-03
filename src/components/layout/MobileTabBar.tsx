@@ -63,13 +63,14 @@ export function MobileTabBar() {
   return (
     <>
       <div className="md:hidden print:hidden fixed bottom-0 left-0 right-0 min-h-[72px] bg-[var(--background)]/80 backdrop-blur-2xl border-t border-border z-50 pb-safe shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
-        {/* 5 gerçek sekme eşit genişlikte bir grid'e yerleştirilir; FAB bu
-            grid akışının TAMAMEN dışında, mutlak konumla tam ortaya
-            (left-1/2 -translate-x-1/2) sabitlenir. Önceki flex+justify-around
-            deseni, "Daha Fazla" gibi geniş etiketli öğeler yüzünden FAB'ı
-            gerçek merkezden kaydırıyordu — artık etiket genişliğinden
-            bağımsız, her zaman tam orta. */}
-        <div className="grid grid-cols-5 items-center h-full">
+        {/* 5 gerçek sekme (2 sol + Daha Fazla + 2 sağ) + FAB için 1 boş hücre
+            = 6 eşit genişlikte grid hücresi. FAB'ın kendisi bu grid akışının
+            TAMAMEN dışında, mutlak konumla tam ortaya (left-1/2
+            -translate-x-1/2) sabitlenir — yalnızca ona yer açan boş hücre
+            grid içinde. NOT: hücre sayısı gerçek çocuk sayısıyla (6) birebir
+            eşleşmeli; daha önce grid-cols-5 kullanılıyordu ki bu 6. öğeyi
+            ("Daha Fazla") ikinci satıra taşırıp çubuğu iki satıra çıkarıyordu. */}
+        <div className="grid grid-cols-6 items-center h-full">
           {primaryLeft.map(({ id, href, icon: Icon, label }) => (
             <Link key={id} href={href} className={`${tabClass(isActive(href))} relative mx-auto`}>
               <Icon size={20} />
