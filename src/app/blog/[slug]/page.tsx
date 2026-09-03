@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
 import { getCmsData } from '@/lib/cms';
 import { fetchPublishedPostBySlug } from '@/modules/blog';
 import { getServerLocale } from '@/lib/i18n/server';
@@ -9,8 +10,46 @@ import { Footer } from '@/components/public/Footer';
 import { MobileNavDrawer } from '@/components/public/MobileNavDrawer';
 import { PlainTextArticle } from '@/components/public/PlainTextArticle';
 
+const SITE_URL = 'https://ustehukuk.com';
+
 interface PageProps {
   params: Promise<{ slug: string }>;
+}
+
+// SEO denetimi (2026-09): kök layout dışında hiçbir sayfa kendi <title>/
+// meta description'ını üretmiyordu — tüm blog yazıları (ve site genelinde
+// her sayfa) aynı jenerik site başlığını paylaşıyordu, arama motorları
+// için ayırt edici bir sinyal yoktu. Blog yazıları için bunu düzeltir:
+// yazıya özel başlık/açıklama, canonical URL, Open Graph ve Twitter Card.
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const locale = await getServerLocale();
+  const post = await fetchPublishedPostBySlug(slug);
+  if (!post) return {};
+
+  const title = pick(post.title, locale);
+  const description = pick(post.excerpt, locale);
+  const url = `${SITE_URL}/blog/${slug}`;
+
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      title,
+      description,
+      url,
+      type: 'article',
+      publishedTime: post.published_at ?? undefined,
+      images: post.cover_image_url ? [{ url: post.cover_image_url }] : undefined,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: post.cover_image_url ? [post.cover_image_url] : undefined,
+    },
+  };
 }
 
 export default async function BlogPostPage({ params }: PageProps) {
@@ -24,9 +63,26 @@ export default async function BlogPostPage({ params }: PageProps) {
 
   const title = pick(post.title, locale);
   const content = pick(post.content, locale);
+  const excerpt = pick(post.excerpt, locale);
+
+  // Arama motorları için Article yapılandırılmış verisi (JSON-LD) —
+  // zengin snippet (yazar, yayın tarihi vb.) olasılığını artırır.
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: title,
+    description: excerpt,
+    image: post.cover_image_url ? [post.cover_image_url] : undefined,
+    datePublished: post.published_at ?? undefined,
+    dateModified: post.updated_at,
+    author: { '@type': 'Organization', name: data.general.logoText },
+    publisher: { '@type': 'Organization', name: data.general.logoText },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': `${SITE_URL}/blog/${slug}` },
+  };
 
   return (
     <div className="min-h-screen bg-[var(--secondary)] font-sans text-foreground">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <nav className="relative z-10 px-4 py-5 md:px-10 md:py-6 flex items-center justify-between text-xs uppercase tracking-widest font-bold bg-[var(--background)] border-b border-border">
         <Link href="/" className="flex items-center gap-3 md:gap-4">
           <img
