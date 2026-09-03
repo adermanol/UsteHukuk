@@ -1,15 +1,20 @@
 import { supabaseAdmin, isSupabaseAdminConfigured } from '@/core/database/supabase-admin'
 import { LegalFeedSource, ScrapedItem, SourceRunResult } from './types'
-import { scrapeResmiGazete } from './sources/resmiGazete'
-import { scrapeMevzuatGov } from './sources/mevzuatGov'
 import { scrapeKvkk } from './sources/kvkk'
-import { scrapeRekabetKurumu } from './sources/rekabetKurumu'
 
+// Canlıya alma hatası (2026-09-03): resmi_gazete/mevzuat_gov/rekabet_kurumu
+// Vercel'in sunucu IP aralıklarından geldiğinde bu üç devlet sitesinin WAF'ı
+// tarafından engelleniyor (HTTP 418 / anında "fetch failed"), User-Agent
+// değişikliğinin hiçbir etkisi olmadı — tespit IP seviyesinde. Bu üç kaynak
+// artık burada TARANMIYOR; bunun yerine GitHub Actions'ta çalışan bağımsız
+// bir script (scripts/legal-radar-scrape.mjs) tarafından taranıp
+// /api/cron/legal-radar-external route'una POST ediliyor (bkz. DEPLOYMENT.md
+// "Mevzuat Radarı — harici kaynak toplayıcı" bölümü). KVKK bu engele takılmadığı
+// için burada, Vercel üzerinde taranmaya devam ediyor. sources/resmiGazete.ts,
+// mevzuatGov.ts, rekabetKurumu.ts silinmedi — scripts/legal-radar-scrape.mjs
+// bunların bire bir portu, referans olarak burada duruyorlar.
 const SOURCES: { source: LegalFeedSource; run: () => Promise<ScrapedItem[]> }[] = [
-  { source: 'resmi_gazete', run: scrapeResmiGazete },
-  { source: 'mevzuat_gov', run: scrapeMevzuatGov },
   { source: 'kvkk', run: scrapeKvkk },
-  { source: 'rekabet_kurumu', run: scrapeRekabetKurumu },
 ];
 
 export class RadarNotConfiguredError extends Error {
@@ -36,18 +41,18 @@ async function runSource(entry: (typeof SOURCES)[number]): Promise<SourceRunResu
 }
 
 /**
- * Tüm kaynakları paralel tarar, sonuçları legal_feed_items'a upsert eder (url bazlı
- * dedupe), her kaynağın çalışma sonucunu legal_feed_runs'a loglar. Bir kaynağın
- * hata vermesi diğerlerini etkilemez. Hiçbir adımda LLM/AI çağrısı yapılmaz.
+ * Tarama sonuçlarını legal_feed_items'a upsert eder (url bazlı dedupe), her
+ * kaynağın çalışma sonucunu legal_feed_runs'a loglar. Hem Vercel içi taramanın
+ * (runLegalRadar) hem de harici GitHub Actions taramasının
+ * (/api/cron/legal-radar-external) ortak kalıcılık katmanı — upsert/loglama
+ * mantığı tek yerde kalsın diye buradan çıkarılmadı, iki çağıran da bunu kullanır.
  */
-export async function runLegalRadar(): Promise<SourceRunResult[]> {
+export async function persistFeedResults(results: SourceRunResult[]): Promise<SourceRunResult[]> {
   if (!isSupabaseAdminConfigured()) {
     throw new RadarNotConfiguredError(
       'Supabase yapılandırılmadı: SUPABASE_SERVICE_ROLE_KEY / NEXT_PUBLIC_SUPABASE_URL eksik.'
     );
   }
-
-  const results = await Promise.all(SOURCES.map(runSource));
 
   for (const result of results) {
     if (result.items.length > 0) {
@@ -78,4 +83,19 @@ export async function runLegalRadar(): Promise<SourceRunResult[]> {
   }
 
   return results;
+}
+
+/**
+ * KVKK'yı Vercel üzerinde tarar (WAF engeline takılmayan tek kaynak), sonuçları
+ * kalıcılaştırır. Diğer 3 kaynak için bkz. yukarıdaki not.
+ */
+export async function runLegalRadar(): Promise<SourceRunResult[]> {
+  if (!isSupabaseAdminConfigured()) {
+    throw new RadarNotConfiguredError(
+      'Supabase yapılandırılmadı: SUPABASE_SERVICE_ROLE_KEY / NEXT_PUBLIC_SUPABASE_URL eksik.'
+    );
+  }
+
+  const results = await Promise.all(SOURCES.map(runSource));
+  return persistFeedResults(results);
 }

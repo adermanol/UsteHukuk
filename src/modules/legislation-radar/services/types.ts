@@ -28,9 +28,12 @@ export interface SourceRunResult {
 // Rekabet Kurumu siteleri tarafından Vercel'in sunucu IP'lerinden gelirken
 // tespit edilip engelleniyordu (HTTP 418 "teapot" ve bağlantı reddi) — bu
 // üç kaynak yerelden test edildiğinde sorunsuz çalışıyordu, yalnızca canlı
-// ortamda engelleniyordu. Standart bir tarayıcı kimliğine geçildi; kamuya
-// açık, herkesin tarayıcıdan zaten görebildiği mevzuat/karar sayfalarını
-// makul bir sıklıkta (günlük tarama) okumak dışında bir amaç taşımıyor.
+// ortamda engelleniyordu. Standart bir tarayıcı kimliğine geçildi; ANCAK
+// bu tek başına yeterli olmadı (canlıda aynı 418/fetch-failed hatası devam
+// etti) — tespit UA seviyesinde değil, IP seviyesindeydi. Bu üç kaynak artık
+// bu dosyadaki fetchHtml üzerinden hiç taranmıyor; bkz. aggregator.ts'teki
+// not ve scripts/legal-radar-scrape.mjs (GitHub Actions'ta çalışan, farklı
+// bir IP aralığından tarayan bağımsız script).
 const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36';
 
 export async function fetchHtml(url: string): Promise<string> {

@@ -113,6 +113,21 @@ Aktif LLM sağlayıcısı (Anthropic / OpenAI / LM Studio) `.env` değil, `/dash
 6. **`/dashboard/kurumlar`'a büronun gerçekten kullandığı kurumları girin** (İzmir Adliyesi, ilgili cezaevleri, göç idaresi vb.). Sistem ulusal bir adres rehberiyle gelmez — sıfır kurum kaydıyla başlar, mobil saha araçlarının (tıkla-ara, tıkla-yol tarifi, cezaevi görüşü föyü) değeri bu veri girilmeden ortaya çıkmaz.
 7. **Çok kullanıcılı büro ise `/dashboard/ekip`'ten personele rol atayın.** Varsayılan rol `avukat`'tır; finansal verilere erişmemesi gereken stajyerler `stajyer` rolüne çekilmelidir.
 
+## 5.1 Mevzuat Radarı — harici kaynak toplayıcı (GitHub Actions)
+
+`legal_feed_items` dört kaynaktan beslenir: `kvkk`, `resmi_gazete`, `mevzuat_gov`, `rekabet_kurumu`. Canlıya alma sonrası (2026-09) tespit edildi: **Resmî Gazete, Mevzuat Bilgi Sistemi ve Rekabet Kurumu siteleri Vercel'in sunucu IP aralıklarından gelen istekleri WAF ile engelliyor** (HTTP 418 / anında "fetch failed"; User-Agent değişikliğinin hiçbir etkisi olmadı — tespit IP seviyesinde, aynı istekler bulut-dışı herhangi bir ağdan sorunsuz çalışıyor). KVKK bu engele takılmıyor, Vercel'de taranmaya devam ediyor.
+
+Çözüm: bu üç kaynak artık **GitHub Actions runner'ında** (`scripts/legal-radar-scrape.mjs`) taranıyor ve `/api/cron/legal-radar-external` route'una (mevcut `CRON_SECRET` ile korunur, `src/core/cron-auth.ts`) POST ediliyor. Ayrıca Resmî Gazete ve Mevzuat Bilgi Sistemi, Ubuntu runner'ının varsayılan CA deposunda bulunmayan bir kök sertifika kullanıyor — script bu iki domain için (yalnızca herkese açık, oturumsuz içerik okumak amacıyla) TLS doğrulamasını atlıyor; bu GitHub Actions'ta doğrulandı (`node:https`, `rejectUnauthorized: false`).
+
+Kurulum (repo GitHub'a bağlandıktan sonra, bir kerelik):
+
+1. GitHub reposunda **Settings → Secrets and variables → Actions**'a gidin.
+2. `CRON_SECRET` secret'ını ekleyin — **Vercel'deki `CRON_SECRET` ile aynı değer** olmalı.
+3. `RADAR_INGEST_URL` secret'ını ekleyin — değeri `https://<canlı-alan-adınız>/api/cron/legal-radar-external` (ör. `https://ustehukuk.com/api/cron/legal-radar-external`).
+4. `.github/workflows/legal-radar.yml` günlük 04:30 UTC'de otomatik çalışır (Vercel'deki KVKK taramasından 30 dk sonra). İlk çalıştırmayı beklemeden doğrulamak için **Actions → "Mevzuat Radarı — harici kaynak toplayıcı" → Run workflow**'dan elle tetikleyebilirsiniz.
+
+Doğrulama: `/dashboard/legislation`'da 4 kaynağın da öğe sayısı > 0 görünmeli; `legal_feed_runs` tablosunda (sütun adı `ran_at`, `created_at` değil) her kaynak için `status='ok'` satırı olmalı.
+
 ## 6. Çok dilli içerik notu
 
 TR/EN dışındaki diller (`ru`/`fr`/`de`/`ar`/`fa`) CMS'te başlangıçta boş bırakılır (otomatik/sahte çeviri üretilmez). Büro bu dilleri gerçekten sunmak istiyorsa `/dashboard/cms`'teki her çevrilebilir alanın dil sekmelerinden gerçek çeviriyi girmesi gerekir.
