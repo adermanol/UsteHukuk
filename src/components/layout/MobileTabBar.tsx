@@ -24,14 +24,20 @@ const STATIC_MORE_ITEMS = [
   { href: '/dashboard/blog', icon: Newspaper, label: 'Blog' },
 ] as const;
 
-// Kayıt genelinde daha resmi olan bazı etiketler, mobil ana sekmede daha
-// kısa/günlük-kullanım diliyle gösterilir (ör. "Ajanda" yerine "Bugün").
-const MOBILE_LABEL_OVERRIDES: Record<string, string> = { ajanda: 'Bugün' };
-
+// Tasarım güncellemesi (2026-09-03): etiketli/72px'lik çubuk kullanıcı
+// isteğiyle "yüzen pil" (floating pill) tasarımına geçirildi — ikon-only,
+// ekran kenarlarından boşluklu, tam genişlik değil. Etiketler kaldırılınca
+// aktif sekmeyi belli etmek için ikonun altında sabit yükseklikte bir slot'a
+// oturan küçük bir nokta göstergesi eklendi (yalnızca aktifken görünür,
+// ama slot her zaman ayrılır ki ikon aktif/pasif arası geçişte zıplamasın).
 const tabClass = (active: boolean) =>
-  `min-w-11 min-h-11 p-2 flex flex-col items-center justify-center gap-1 rounded-xl ${
-    active ? 'text-[var(--primary)]' : 'text-muted-foreground hover:text-[var(--primary)] transition-colors'
+  `min-w-11 min-h-11 flex flex-col items-center justify-center gap-1 rounded-full transition-colors ${
+    active ? 'text-[var(--primary)]' : 'text-muted-foreground hover:text-[var(--primary)]'
   }`;
+
+function ActiveDot({ active }: { active: boolean }) {
+  return <span className={`w-1 h-1 rounded-full transition-opacity ${active ? 'opacity-100 bg-[var(--primary)]' : 'opacity-0'}`} />;
+}
 
 export function MobileTabBar() {
   const pathname = usePathname()
@@ -54,7 +60,7 @@ export function MobileTabBar() {
   // burada anlamsız olurdu. Kullanıcı ayarlardan sırayı özelleştirdiğinde
   // (navOrder dolu) TEK bir sıra hem masaüstünü hem mobili besler.
   const orderedRegistry = resolveNavOrder(navOrder && navOrder.length > 0 ? navOrder : MOBILE_DEFAULT_ORDER);
-  const primary = orderedRegistry.slice(0, 4).map(item => ({ ...item, label: MOBILE_LABEL_OVERRIDES[item.id] ?? item.label }));
+  const primary = orderedRegistry.slice(0, 4);
   const primaryLeft = primary.slice(0, 2);
   const primaryRight = primary.slice(2, 4);
   const moreItems = [...orderedRegistry.slice(4), ...STATIC_MORE_ITEMS];
@@ -62,35 +68,40 @@ export function MobileTabBar() {
 
   return (
     <>
-      <div className="md:hidden print:hidden fixed bottom-0 left-0 right-0 min-h-[72px] bg-[var(--background)]/80 backdrop-blur-2xl border-t border-border z-50 pb-safe shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
-        {/* 5 gerçek sekme (2 sol + Daha Fazla + 2 sağ) + FAB için 1 boş hücre
-            = 6 eşit genişlikte grid hücresi. FAB'ın kendisi bu grid akışının
-            TAMAMEN dışında, mutlak konumla tam ortaya (left-1/2
-            -translate-x-1/2) sabitlenir — yalnızca ona yer açan boş hücre
-            grid içinde. NOT: hücre sayısı gerçek çocuk sayısıyla (6) birebir
-            eşleşmeli; daha önce grid-cols-5 kullanılıyordu ki bu 6. öğeyi
-            ("Daha Fazla") ikinci satıra taşırıp çubuğu iki satıra çıkarıyordu. */}
-        <div className="grid grid-cols-6 items-center h-full">
-          {primaryLeft.map(({ id, href, icon: Icon, label }) => (
-            <Link key={id} href={href} className={`${tabClass(isActive(href))} relative mx-auto`}>
-              <Icon size={20} />
-              {id === 'ajanda' && unreadCount > 0 && (
-                <span className="absolute top-0.5 right-1.5 w-2 h-2 rounded-full bg-rose-500" aria-label={`${unreadCount} okunmamış bildirim`} />
-              )}
-              <span className="text-[10px] font-medium">{label}</span>
-            </Link>
-          ))}
+      {/* 5 gerçek sekme (2 sol + Daha Fazla + 2 sağ) + FAB için 1 boş hücre
+          = 6 eşit genişlikte grid hücresi — hücre sayısı gerçek çocuk
+          sayısıyla (6) birebir eşleşmeli, aksi halde taşıp iki satıra çıkar. */}
+      <div
+        className="md:hidden print:hidden fixed left-3 right-3 h-14 bg-[var(--background)]/85 backdrop-blur-2xl border border-border rounded-full z-50 shadow-[0_10px_35px_rgba(0,0,0,0.4)]"
+        style={{ bottom: 'calc(0.75rem + env(safe-area-inset-bottom))' }}
+      >
+        <div className="grid grid-cols-6 items-center h-full px-1">
+          {primaryLeft.map(({ id, href, icon: Icon }) => {
+            const active = isActive(href);
+            return (
+              <Link key={id} href={href} className={`${tabClass(active)} relative mx-auto`} aria-label={id}>
+                <Icon size={20} />
+                {id === 'ajanda' && unreadCount > 0 && (
+                  <span className="absolute top-0 right-1.5 w-2 h-2 rounded-full bg-rose-500" aria-label={`${unreadCount} okunmamış bildirim`} />
+                )}
+                <ActiveDot active={active} />
+              </Link>
+            );
+          })}
           {/* FAB'ın altında boş bir grid hücresi — dokunma alanı çakışmasın diye */}
           <div />
-          {primaryRight.map(({ id, href, icon: Icon, label }) => (
-            <Link key={id} href={href} className={`${tabClass(isActive(href))} relative mx-auto`}>
-              <Icon size={20} />
-              {id === 'ajanda' && unreadCount > 0 && (
-                <span className="absolute top-0.5 right-1.5 w-2 h-2 rounded-full bg-rose-500" aria-label={`${unreadCount} okunmamış bildirim`} />
-              )}
-              <span className="text-[10px] font-medium">{label}</span>
-            </Link>
-          ))}
+          {primaryRight.map(({ id, href, icon: Icon }) => {
+            const active = isActive(href);
+            return (
+              <Link key={id} href={href} className={`${tabClass(active)} relative mx-auto`} aria-label={id}>
+                <Icon size={20} />
+                {id === 'ajanda' && unreadCount > 0 && (
+                  <span className="absolute top-0 right-1.5 w-2 h-2 rounded-full bg-rose-500" aria-label={`${unreadCount} okunmamış bildirim`} />
+                )}
+                <ActiveDot active={active} />
+              </Link>
+            );
+          })}
           <button
             onClick={() => setMoreOpen(true)}
             className={`${tabClass(isMoreActive)} relative mx-auto`}
@@ -98,22 +109,23 @@ export function MobileTabBar() {
           >
             <MoreHorizontal size={20} />
             {unreadCount > 0 && (
-              <span className="absolute top-0.5 right-1.5 w-2 h-2 rounded-full bg-rose-500" aria-label={`${unreadCount} okunmamış bildirim`} />
+              <span className="absolute top-0 right-1.5 w-2 h-2 rounded-full bg-rose-500" aria-label={`${unreadCount} okunmamış bildirim`} />
             )}
-            <span className="text-[10px] font-medium">Daha Fazla</span>
+            <ActiveDot active={isMoreActive} />
           </button>
         </div>
 
         {/* Merkez FAB — "Hızlı Ekle" menüsünü açar (masraf, süre hesabı,
             duruşma, not, sohbet). Grid akışının dışında, her zaman tam
-            ortada; etiket genişlikleri konumunu etkilemez. */}
-        <div className="absolute left-1/2 -translate-x-1/2 -top-6">
+            ortada; pil çubuğun üstünden taşarak (-top-5) klasik "raised
+            FAB" görünümünü korur. */}
+        <div className="absolute left-1/2 -translate-x-1/2 -top-5">
           <button
-            className="w-14 h-14 bg-[var(--primary)] text-[var(--background)] rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(205,163,114,0.4)] border border-border hover:scale-105 transition-transform"
+            className="w-12 h-12 bg-[var(--primary)] text-[var(--background)] rounded-full flex items-center justify-center shadow-[0_0_24px_rgba(205,163,114,0.45)] border border-border hover:scale-105 transition-transform"
             onClick={() => setQuickAddOpen(true)}
             aria-label="Hızlı ekle"
           >
-            <Plus size={26} />
+            <Plus size={24} />
           </button>
         </div>
       </div>

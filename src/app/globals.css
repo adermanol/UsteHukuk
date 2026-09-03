@@ -183,13 +183,15 @@
   .animation-delay-4000 {
     animation-delay: 4s;
   }
-  /* MobileTabBar sabit 72px yükseklikte; çentikli/gesture-bar'lı cihazlarda
-     home-indicator alanı env(safe-area-inset-bottom) ile telafi edilir. */
+  /* MobileTabBar artık ekran kenarından boşluklu "yüzen pil" (floating
+     pill) — 56px (h-14) yükseklik + alttan 0.75rem boşluk + çentikli/
+     gesture-bar'lı cihazlarda home-indicator alanı (env(safe-area-inset-bottom))
+     + üstünde biraz nefes payı. */
   .pb-safe {
     padding-bottom: env(safe-area-inset-bottom);
   }
   .pb-tabbar-safe {
-    padding-bottom: calc(72px + env(safe-area-inset-bottom) + 1rem);
+    padding-bottom: calc(56px + 0.75rem + env(safe-area-inset-bottom) + 1rem);
   }
 }
 
