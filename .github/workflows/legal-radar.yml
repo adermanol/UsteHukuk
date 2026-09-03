@@ -22,8 +22,13 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Bağımlılıkları kur
-        run: npm ci --omit=dev
+      # Tüm projenin bağımlılık ağacı yerine (package-lock.json platform-özel
+      # opsiyonel bağımlılıklar yüzünden `npm ci` ile senkron olmayabiliyor —
+      # bu iş için gereksiz), script'in tek gerçek bağımlılığı olan cheerio
+      # doğrudan kurulur. package.json'daki sürümle senkron kalması için
+      # `--no-save` kullanılır (repo'nun kendi package.json/lock'u değişmez).
+      - name: cheerio kur
+        run: npm install --no-save cheerio@^1.2.0
 
       - name: Tara ve gönder
         env:
