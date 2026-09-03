@@ -1,0 +1,24 @@
+name: Radar IP Test (geçici)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Resmî Gazete
+        run: |
+          curl -s -o /dev/null -w "resmigazete.gov.tr -> %{http_code}\n" \
+            -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36" \
+            "https://www.resmigazete.gov.tr/"
+      - name: Mevzuat Bilgi Sistemi
+        run: |
+          curl -s -o /dev/null -w "mevzuat.gov.tr -> %{http_code}\n" \
+            -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36" \
+            "https://www.mevzuat.gov.tr/"
+      - name: Rekabet Kurumu
+        run: |
+          curl -s -o /dev/null -w "rekabet.gov.tr -> %{http_code}\n" \
+            -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36" \
+            "https://www.rekabet.gov.tr/"
