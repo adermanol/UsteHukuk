@@ -50,3 +50,5 @@ next-env.d.ts
 /Website_icerik/
 *.docx
 /UseHukukLogoIcon.svg
+blog_posts.json
+blog_posts_utf8.json
