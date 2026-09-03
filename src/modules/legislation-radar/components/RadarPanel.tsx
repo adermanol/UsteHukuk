@@ -70,6 +70,8 @@ export function RadarPanel() {
   const [codeArticleQuery, setCodeArticleQuery] = useState('');
   const [isLoadingArticles, setIsLoadingArticles] = useState(false);
 
+  const [selectedArticle, setSelectedArticle] = useState<LegalCodeArticleResult | null>(null);
+
   const [expandedKeyword, setExpandedKeyword] = useState<string | null>(null);
   const [keywordDecisions, setKeywordDecisions] = useState<CaseLawResult[] | null>(null);
   const [isLoadingDecisions, setIsLoadingDecisions] = useState(false);
@@ -458,10 +460,14 @@ export function RadarPanel() {
                 <p className="text-xs text-muted-foreground">Sonuç bulunamadı.</p>
               )}
               {!isLoadingArticles && codeArticles?.map(a => (
-                <div key={a.id} className="bg-muted border border-border rounded-lg p-2.5">
+                <button
+                  key={a.id}
+                  onClick={() => setSelectedArticle(a)}
+                  className="w-full text-left bg-muted hover:bg-muted border border-border hover:border-[var(--primary)]/30 rounded-lg p-2.5 transition-colors"
+                >
                   <p className="text-xs font-semibold text-[var(--primary)]">{a.codeShortName} md. {a.articleNo}{a.heading ? ` — ${a.heading}` : ''}</p>
                   <p className="text-xs text-muted-foreground mt-1 line-clamp-3">{a.content}</p>
-                </div>
+                </button>
               ))}
             </div>
           </div>
@@ -585,6 +591,33 @@ export function RadarPanel() {
           );
         })}
       </div>
+
+      {selectedArticle && (
+        <div
+          className="fixed inset-0 z-[1200] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-200"
+          onClick={() => setSelectedArticle(null)}
+        >
+          <div
+            className="relative glass-panel rounded-2xl border border-[var(--primary)]/30 shadow-2xl max-w-2xl w-full max-h-[80vh] flex flex-col p-6 animate-in zoom-in-95 duration-200"
+            onClick={e => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setSelectedArticle(null)}
+              className="absolute top-3 right-3 p-1.5 text-muted-foreground hover:text-foreground transition-colors"
+              aria-label="Kapat"
+            >
+              <X size={18} />
+            </button>
+            <p className="text-sm font-semibold text-[var(--primary)] pr-8">
+              {selectedArticle.codeShortName} md. {selectedArticle.articleNo}
+              {selectedArticle.heading ? ` — ${selectedArticle.heading}` : ''}
+            </p>
+            <div className="mt-3 overflow-y-auto pr-1">
+              <p className="text-sm text-foreground leading-relaxed whitespace-pre-wrap">{selectedArticle.content}</p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
