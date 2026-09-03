@@ -7,9 +7,13 @@ import { Lock, UserCheck } from 'lucide-react'
 
 /** Ekip panelindeki davet linkine tıklayan yeni kullanıcının indiği sayfa
  * (bkz. /api/team-invite'daki redirectTo). Supabase'in davet e-postası
- * linki, tarayıcıda otomatik olarak geçici bir oturum kurar (`supabase`
- * istemcisi `detectSessionInUrl` ile bunu kendisi halleder) — burada
- * yalnızca o oturumla yeni bir şifre belirlenir. */
+ * linki iki farklı biçimde gelebilir: (1) eski/klasik biçim — tarayıcı
+ * `supabase` istemcisinin `detectSessionInUrl`'ü ile OTOMATIK yakalanan
+ * `#access_token=...` URL parçası, (2) daha yeni biçim — açıkça
+ * doğrulanması gereken `?token_hash=...&type=invite` sorgu parametreleri.
+ * Hangisinin geldiğini garanti edemediğimiz için ikisini de ele alıyoruz;
+ * `token_hash` varsa `verifyOtp()` ile elle doğrulanır, yoksa otomatik
+ * algılamanın zaten kurmuş olabileceği oturum kontrol edilir. */
 export default function DavetPage() {
   const router = useRouter()
   const [status, setStatus] = useState<'checking' | 'ready' | 'invalid'>('checking')
@@ -20,14 +24,33 @@ export default function DavetPage() {
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => {
+    (async () => {
+      const params = new URLSearchParams(window.location.search);
+      const tokenHash = params.get('token_hash');
+      const type = params.get('type');
+
+      if (tokenHash && type) {
+        const { data, error: verifyError } = await supabase.auth.verifyOtp({
+          token_hash: tokenHash,
+          type: type as 'invite' | 'email' | 'recovery' | 'email_change',
+        });
+        if (verifyError || !data.user) {
+          setStatus('invalid');
+          return;
+        }
+        setFullName((data.user.user_metadata?.full_name as string) || '');
+        setStatus('ready');
+        return;
+      }
+
+      const { data } = await supabase.auth.getUser();
       if (data.user) {
         setFullName((data.user.user_metadata?.full_name as string) || '')
         setStatus('ready')
       } else {
         setStatus('invalid')
       }
-    })
+    })()
   }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
