@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState, useTransition } from 'react'
-import { AlertTriangle, ShieldCheck, User, GraduationCap, Crown, UserPlus, Send } from 'lucide-react'
+import { AlertTriangle, ShieldCheck, User, GraduationCap, Crown, UserPlus, Send, Trash2 } from 'lucide-react'
 import {
   fetchTeamMembers,
   fetchCurrentProfile,
@@ -117,6 +117,30 @@ export function TeamPanel() {
       setStatusMessage(result.message);
       if (result.success) {
         setItems(prev => prev?.map(i => (i.id === id ? { ...i, is_active: isActive } : i)) ?? prev);
+      }
+    });
+  };
+
+  const handleDelete = (member: ProfileRow) => {
+    if (!confirm(`"${member.full_name || member.email}" hesabını kalıcı olarak silmek istediğinize emin misiniz? Bu işlem geri alınamaz.`)) return;
+    setStatusMessage(null);
+    startTransition(async () => {
+      try {
+        const res = await fetch('/api/team-delete', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: member.id }),
+        });
+        const result = await res.json();
+        if (result.success) {
+          setItems(prev => prev?.filter(i => i.id !== member.id) ?? prev);
+          setStatusMessage('Hesap silindi.');
+        } else {
+          setStatusMessage(result.error || 'Hesap silinemedi.');
+        }
+      } catch (err) {
+        console.error('Delete request failed:', err);
+        setStatusMessage('Hesap silinirken beklenmeyen bir hata oluştu.');
       }
     });
   };
@@ -240,6 +264,14 @@ export function TeamPanel() {
               }`}
             >
               {item.is_active ? 'Devre Dışı Bırak' : 'Etkinleştir'}
+            </button>
+            <button
+              onClick={() => handleDelete(item)}
+              disabled={isPending || isSelf}
+              title="Hesabı kalıcı olarak sil"
+              className="min-w-9 min-h-9 flex items-center justify-center text-muted-foreground hover:text-rose-400 transition-colors shrink-0 disabled:opacity-40"
+            >
+              <Trash2 size={16} />
             </button>
           </div>
         );
