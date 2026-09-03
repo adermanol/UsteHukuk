@@ -80,6 +80,18 @@ export function MobileTabBar() {
         style={{ bottom: 'calc(0.75rem + env(safe-area-inset-bottom))' }}
       >
         <div className="grid grid-cols-6 items-center h-full px-1">
+          {/* Hızlı Ekle — en solda, dolu altın daire içinde (eski FAB
+              renklendirmesi) ki diğer sade ikonlardan görsel olarak
+              ayrışsın, ama artık pilin İÇİNDE ve aynı hücre boyutunda. */}
+          <button
+            onClick={() => setQuickAddOpen(true)}
+            className="min-w-11 min-h-11 flex items-center justify-center mx-auto"
+            aria-label="Hızlı ekle"
+          >
+            <span className="w-9 h-9 flex items-center justify-center rounded-full bg-[var(--primary)] text-[var(--background)] shadow-[0_0_14px_rgba(205,163,114,0.45)]">
+              <Plus size={18} />
+            </span>
+          </button>
           {primaryLeft.map(({ id, href, icon: Icon }) => {
             const active = isActive(href);
             return (
@@ -92,13 +104,6 @@ export function MobileTabBar() {
               </Link>
             );
           })}
-          <button
-            onClick={() => setQuickAddOpen(true)}
-            className={`${tabClass(false)} relative mx-auto text-[var(--primary)]`}
-            aria-label="Hızlı ekle"
-          >
-            <Plus size={20} />
-          </button>
           {primaryRight.map(({ id, href, icon: Icon }) => {
             const active = isActive(href);
             return (
