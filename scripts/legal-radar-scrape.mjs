@@ -26,6 +26,16 @@ if (!RADAR_INGEST_URL || !CRON_SECRET) {
 const USER_AGENT =
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36';
 
+// /api/cron/legal-radar-external route'undaki zod şemasıyla eşleşir (title
+// max 500). rekabet.gov.tr'nin sezgisel link deseni (bkz. sources/
+// rekabetKurumu.ts'teki not) bazen uzun bir metin bloğunu "başlık" olarak
+// yakalıyor — canlıda gözlemlendi (2026-09-03, 400 Bad Request). Tüm
+// kaynaklarda güvenlik payı için kırpılır.
+const MAX_TITLE_LENGTH = 500;
+function truncateTitle(title) {
+  return title.length > MAX_TITLE_LENGTH ? title.slice(0, MAX_TITLE_LENGTH - 1) + '…' : title;
+}
+
 const REQUEST_HEADERS = {
   'User-Agent': USER_AGENT,
   'Accept-Language': 'tr-TR,tr;q=0.9,en;q=0.8',
@@ -107,7 +117,7 @@ async function scrapeResmiGazete() {
     const absoluteUrl = href.startsWith('http') ? href : new URL(href, RESMI_GAZETE_BASE).toString();
     if (seenUrls.has(absoluteUrl)) return;
 
-    const title = $(el).text().trim().replace(/\s+/g, ' ');
+    const title = truncateTitle($(el).text().trim().replace(/\s+/g, ' '));
     if (!title) return;
 
     seenUrls.add(absoluteUrl);
@@ -142,7 +152,7 @@ async function scrapeMevzuatGov() {
     const absoluteUrl = href.startsWith('http') ? href : new URL(href, MEVZUAT_GOV_BASE).toString();
     if (seenUrls.has(absoluteUrl)) return;
 
-    const title = $(el).text().trim().replace(/\s+/g, ' ');
+    const title = truncateTitle($(el).text().trim().replace(/\s+/g, ' '));
     if (!title) return;
 
     seenUrls.add(absoluteUrl);
@@ -176,7 +186,7 @@ async function scrapeRekabetKurumu() {
     const href = $(el).attr('href') || '';
     if (!REKABET_HREF_PATTERN.test(href)) return;
 
-    const title = $(el).text().trim().replace(/\s+/g, ' ');
+    const title = truncateTitle($(el).text().trim().replace(/\s+/g, ' '));
     if (title.length < REKABET_NAV_TITLE_MIN_LENGTH) return;
 
     const absoluteUrl = href.startsWith('http') ? href : new URL(href, REKABET_ORIGIN).toString();
