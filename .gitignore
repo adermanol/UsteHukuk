@@ -48,6 +48,9 @@ next-env.d.ts
 /Tasks/
 /UsteHukuk/
 /Website_icerik/
+
+# ticari değerleme/fiyat/strateji belgeleri — uygulama kodu değil, gizli
+/Ticari/
 *.docx
 /UseHukukLogoIcon.svg
 blog_posts.json
