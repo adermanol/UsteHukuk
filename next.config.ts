@@ -37,7 +37,9 @@ const csp = [
   `img-src 'self' data: blob: https://i.pravatar.cc https://*.tile.openstreetmap.org ${supabaseOrigin}`,
   `font-src 'self' data:`,
   `connect-src 'self' ${supabaseOrigin}`,
-  `frame-src 'self' https://www.google.com`,
+  // Supabase: belge görüntüleyicide (DocumentViewerModal) kısa ömürlü imzalı
+  // URL ile gömülen PDF'ler.
+  `frame-src 'self' https://www.google.com ${supabaseOrigin}`,
   `frame-ancestors 'none'`,
   `object-src 'none'`,
   `base-uri 'self'`,

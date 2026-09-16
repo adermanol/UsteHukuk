@@ -21,6 +21,7 @@ import {
   type AttachmentTarget,
 } from '../attachmentTypes'
 import { getTemplate } from '@/modules/document-wizard/templates/registry'
+import { DocumentViewerModal } from './DocumentViewerModal'
 
 const labelClass = "text-[11px] uppercase tracking-wide text-muted-foreground mb-1 block";
 
@@ -87,6 +88,7 @@ function DocumentsSectionInner({
   const [isDragging, setIsDragging] = useState(false);
   const [busyId, setBusyId] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
+  const [viewing, setViewing] = useState<AttachmentRow | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const isUploading = queue.some(q => q.error === null && q.progress < 100);
 
@@ -131,25 +133,19 @@ function DocumentsSectionInner({
     }
   }, [target, targetId, category]);
 
-  const handleOpen = async (doc: AttachmentRow) => {
+  const headingFor = (doc: AttachmentRow) =>
+    doc.source === 'generated' ? (getTemplate(doc.doc_type)?.label ?? doc.file_name) : doc.file_name;
+
+  const closeViewer = useCallback(() => setViewing(null), []);
+
+  const handleDownload = async (doc: AttachmentRow) => {
     setBusyId(doc.id);
     setMessage(null);
-    const previewable = ATTACHMENT_FILE_TYPES[doc.format]?.previewable ?? false;
-    // Önizlenebilir belgeler yeni sekmede açılır; sekme await'ten ÖNCE,
-    // doğrudan kullanıcı tıklamasıyla açılır — aksi halde tarayıcılar
-    // (özellikle iOS Safari) açılır pencereyi engelliyor. İndirme olarak
-    // sunulan türler (Content-Disposition: attachment) sayfadan ayrılmadan
-    // iner, boş bir sekme bırakmamak için aynı pencerede tetiklenir.
-    const popup = previewable ? window.open('', '_blank') : null;
-    const result = await getAttachmentDownloadUrl(target, doc.id);
+    const result = await getAttachmentDownloadUrl(target, doc.id, 'download');
     setBusyId(null);
-    if (!result.url) {
-      popup?.close();
-      setMessage(result.error || 'Belge açılamadı.');
-      return;
-    }
-    if (popup) popup.location.replace(result.url);
-    else window.location.assign(result.url);
+    if (!result.url) { setMessage(result.error || 'İndirme bağlantısı üretilemedi.'); return; }
+    // `Content-Disposition: attachment` — sayfa değişmez, yalnızca indirme başlar.
+    window.location.assign(result.url);
   };
 
   const handleDelete = async (doc: AttachmentRow) => {
@@ -254,8 +250,7 @@ function DocumentsSectionInner({
           {documents.map(doc => {
             const Icon = iconFor(doc.format);
             const isGenerated = doc.source === 'generated';
-            const previewable = ATTACHMENT_FILE_TYPES[doc.format]?.previewable ?? false;
-            const heading = isGenerated ? (getTemplate(doc.doc_type)?.label ?? doc.file_name) : doc.file_name;
+            const heading = headingFor(doc);
             const meta = [
               isGenerated ? null : categoryLabel(doc.doc_type),
               doc.format.toUpperCase(),
@@ -263,31 +258,45 @@ function DocumentsSectionInner({
               new Date(doc.created_at).toLocaleDateString('tr-TR'),
             ].filter(Boolean).join(' · ');
             return (
-              <div key={doc.id} className="flex items-center justify-between gap-3 bg-muted border border-border rounded-xl p-3">
-                <div className="flex items-center gap-2.5 min-w-0">
+              <div key={doc.id} className="flex items-center justify-between gap-2 bg-muted border border-border hover:border-[var(--primary)]/30 rounded-xl p-1.5 pl-3 transition-colors">
+                <button
+                  type="button"
+                  onClick={() => setViewing(doc)}
+                  className="flex items-center gap-2.5 min-w-0 flex-1 text-left py-1.5 rounded-lg"
+                  title="Görüntüle"
+                >
                   <Icon size={16} className="text-[var(--primary)] shrink-0" />
-                  <div className="min-w-0">
-                    <p className="text-sm text-foreground truncate" title={doc.file_name}>{heading}</p>
-                    <p className="text-[11px] text-muted-foreground flex items-center gap-1.5 flex-wrap">
+                  <span className="min-w-0">
+                    <span className="block text-sm text-foreground truncate">{heading}</span>
+                    <span className="text-[11px] text-muted-foreground flex items-center gap-1.5 flex-wrap">
                       {isGenerated && (
                         <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-[var(--primary)] bg-[var(--primary)]/10 px-1.5 py-0.5 rounded-full">
                           <Sparkles size={9} /> Otomasyon
                         </span>
                       )}
                       {meta}
-                    </p>
-                  </div>
-                </div>
+                    </span>
+                  </span>
+                </button>
                 <div className="flex items-center gap-0.5 shrink-0">
                   <button
                     type="button"
-                    onClick={() => handleOpen(doc)}
+                    onClick={() => setViewing(doc)}
+                    className="p-2 text-muted-foreground hover:text-[var(--primary)] transition-colors"
+                    aria-label="Görüntüle"
+                    title="Görüntüle"
+                  >
+                    <Eye size={15} />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleDownload(doc)}
                     disabled={busyId === doc.id}
                     className="p-2 text-muted-foreground hover:text-[var(--primary)] transition-colors disabled:opacity-50"
-                    aria-label={previewable ? 'Görüntüle' : 'İndir'}
-                    title={previewable ? 'Görüntüle' : 'İndir'}
+                    aria-label="İndir"
+                    title="İndir"
                   >
-                    {previewable ? <Eye size={15} /> : <Download size={15} />}
+                    <Download size={15} />
                   </button>
                   <button
                     type="button"
@@ -308,6 +317,10 @@ function DocumentsSectionInner({
 
       {message && <p className="text-xs text-muted-foreground">{message}</p>}
       {isUploading && <span className="sr-only">Yükleme sürüyor</span>}
+
+      {viewing && (
+        <DocumentViewerModal target={target} doc={viewing} heading={headingFor(viewing)} onClose={closeViewer} />
+      )}
     </div>
   );
 }
