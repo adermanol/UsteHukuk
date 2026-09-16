@@ -1,4 +1,4 @@
-import { DocumentWizard } from '@/modules/document-wizard'
+import { DocumentWizard, DocumentArchivePanel } from '@/modules/document-wizard'
 import { FileText } from 'lucide-react'
 
 export default function DocumentsPage() {
@@ -12,8 +12,9 @@ export default function DocumentsPage() {
         Taraf bilgileri, yasal dayanaklar ve büro arşivinden alınan referanslarla ihtarname, sözleşme ve dilekçelerinizi saniyeler içinde oluşturun.
       </p>
 
-      <div className="max-w-4xl">
+      <div className="max-w-4xl space-y-8">
         <DocumentWizard />
+        <DocumentArchivePanel />
       </div>
     </div>
   )

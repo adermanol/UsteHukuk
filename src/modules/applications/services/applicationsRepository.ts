@@ -1,4 +1,5 @@
 import { supabase, isMockSupabase } from '@/core/database/supabase'
+import { purgeAttachmentStorage } from '@/modules/attachments/services/attachmentsRepository'
 
 export type ApplicationStatus = 'pending' | 'active' | 'resolved';
 
@@ -109,5 +110,8 @@ export async function deleteApplication(id: string): Promise<{ success: boolean;
     return { success: false, message: 'Başvuru silinemedi — bu işlem için yetkiniz olmayabilir.' };
   }
   await supabase.rpc('log_audit_event', { p_action: 'client_delete', p_details: { client_id: id } });
+  // Müvekkil belgelerinin satırları kaskadla silindi; kimlik taraması gibi
+  // byte'ların Storage'da sahipsiz kalmaması için klasör de temizlenir.
+  await purgeAttachmentStorage('client', id).catch(err => console.error('Müvekkil belgeleri temizlenemedi:', err));
   return { success: true, message: 'Başvuru silindi.' };
 }

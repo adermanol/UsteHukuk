@@ -7,6 +7,7 @@ import { fetchClients, fetchClientDetail, ClientRow, ClientDetail, ClientsNotCon
 import { CaseStatus } from '@/modules/case-files'
 import { labelFor } from '@/modules/practice-areas'
 import { CaseStatusLinks } from '@/modules/client-portal'
+import { DocumentsSection } from '@/modules/attachments'
 
 const STATUS_LABELS: Record<CaseStatus, string> = {
   potansiyel: 'Potansiyel', aktif: 'Aktif', istinaf: 'İstinaf', temyiz: 'Temyiz',
@@ -201,6 +202,15 @@ export function ClientsPanel() {
               {detail.cases.some(c => c.otherParties.length > 0) && (
                 <p className="text-[11px] text-muted-foreground italic pt-1">Çok taraflı dosyalarda ücret/masraf payı otomatik hesaplanmaz; yukarıdaki tutarlar dosyanın toplamıdır.</p>
               )}
+            </div>
+
+            <div className="glass-card p-5">
+              <DocumentsSection
+                target="client"
+                targetId={detail.client.id}
+                title="Müvekkil Belgeleri"
+                emptyHint="Bu müvekkile ait belge yok. Kimlik, vekaletname veya sözleşme gibi bir dosyaya bağlı olmayan evrakı yüklemek için tıklayın ya da buraya sürükleyin. Dosyaya özgü evrak, Dosyalar ekranındaki ilgili dosyanın kartından yüklenir."
+              />
             </div>
           </div>
         )}

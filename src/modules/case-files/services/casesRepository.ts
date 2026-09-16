@@ -1,4 +1,5 @@
 import { supabase, isMockSupabase } from '@/core/database/supabase'
+import { purgeAttachmentStorage } from '@/modules/attachments/services/attachmentsRepository'
 
 export type CaseStatus = 'potansiyel' | 'aktif' | 'istinaf' | 'temyiz' | 'kesinlesti' | 'kapandi' | 'arsiv';
 export type CaseJurisdiction = 'hukuk' | 'ceza' | 'icra' | 'idare' | 'is' | 'arabuluculuk' | 'danismanlik';
@@ -163,11 +164,16 @@ export async function deleteCase(id: string): Promise<{ success: boolean; messag
   if (isMockSupabase()) {
     return { success: false, message: 'Supabase yapılandırılmadı: dosya silinemedi.' };
   }
-  const { error } = await supabase.from('cases').delete().eq('id', id);
+  const { data, error } = await supabase.from('cases').delete().eq('id', id).select('id');
   if (error) {
     console.error('deleteCase error:', error);
     return { success: false, message: 'Dosya silinirken bir hata oluştu.' };
   }
+  if (!data || data.length === 0) {
+    return { success: false, message: 'Dosya silinemedi — bu işlem için yetkiniz olmayabilir.' };
+  }
+  // Belge satırları kaskadla silindi; Storage'daki byte'ları da temizle.
+  await purgeAttachmentStorage('case', id).catch(err => console.error('Dosya belgeleri temizlenemedi:', err));
   return { success: true, message: 'Dosya silindi.' };
 }
 

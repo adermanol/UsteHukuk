@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useMemo, useState, useTransition } from 'react'
-import { AlertTriangle, Plus, Pencil, Trash2, X, FolderOpen, UserPlus, FileDown, FileText as FileTextIcon } from 'lucide-react'
+import { AlertTriangle, Plus, Pencil, Trash2, X, FolderOpen, UserPlus } from 'lucide-react'
 import {
   fetchCases,
   createCase,
@@ -17,11 +17,10 @@ import {
   CaseClientRow,
   CasesNotConfiguredError,
 } from '../services/casesRepository'
-import { fetchCaseDocuments, getCaseDocumentDownloadUrl, deleteCaseDocument, CaseDocumentRow } from '../services/caseDocumentsRepository'
 import { PRACTICE_AREA_TAXONOMY, labelFor } from '@/modules/practice-areas'
 import { fetchClients, ClientRow } from '@/modules/clients/services/clientsRepository'
 import { CaseStatusLinks } from '@/modules/client-portal'
-import { getTemplate } from '@/modules/document-wizard/templates/registry'
+import { DocumentsSection } from '@/modules/attachments'
 
 const STATUS_LABELS: Record<CaseStatus, string> = {
   potansiyel: 'Potansiyel', aktif: 'Aktif', istinaf: 'İstinaf', temyiz: 'Temyiz',
@@ -213,61 +212,6 @@ function CasePartiesSection({ caseId, clients }: { caseId: string; clients: Clie
           <UserPlus size={13} /> Ekle
         </button>
       </div>
-      {message && <p className="text-xs text-muted-foreground">{message}</p>}
-    </div>
-  );
-}
-
-/** Doküman otomasyon sihirbazından bu dosyaya kaydedilmiş belgeler (bkz.
- * src/app/api/generate-doc/route.ts, "caseId" gönderildiğinde). İndirme
- * bağlantısı her tıklamada yeniden üretilir (kısa ömürlü imzalı URL) — uzun
- * ömürlü bir bağlantı saklanmaz. */
-function CaseDocumentsSection({ caseId }: { caseId: string }) {
-  const [documents, setDocuments] = useState<CaseDocumentRow[] | null>(null);
-  const [busyId, setBusyId] = useState<string | null>(null);
-  const [message, setMessage] = useState<string | null>(null);
-
-  const load = () => { fetchCaseDocuments(caseId).then(setDocuments); };
-  useEffect(() => { load(); /* eslint-disable-next-line react-hooks/exhaustive-deps */ }, [caseId]);
-
-  const handleDownload = async (doc: CaseDocumentRow) => {
-    setBusyId(doc.id);
-    setMessage(null);
-    const result = await getCaseDocumentDownloadUrl(doc.id);
-    setBusyId(null);
-    if (!result.url) { setMessage(result.error || 'İndirme bağlantısı üretilemedi.'); return; }
-    window.open(result.url, '_blank', 'noopener,noreferrer');
-  };
-
-  const handleDelete = async (doc: CaseDocumentRow) => {
-    if (!window.confirm(`"${doc.file_name}" belgesini silmek istediğinize emin misiniz?`)) return;
-    setBusyId(doc.id);
-    const result = await deleteCaseDocument(doc.id);
-    setBusyId(null);
-    setMessage(result.message);
-    if (result.success) load();
-  };
-
-  return (
-    <div className="space-y-3">
-      <p className={labelClass}>Belgeler</p>
-      {documents === null && <p className="text-xs text-muted-foreground">Yükleniyor...</p>}
-      {documents?.length === 0 && <p className="text-xs text-muted-foreground">Bu dosyaya henüz kaydedilmiş bir belge yok — Doküman Otomasyonu'ndan üretirken bu dosyayı seçerek kaydedebilirsiniz.</p>}
-      {documents?.map(doc => (
-        <div key={doc.id} className="flex items-center justify-between gap-3 bg-muted border border-border rounded-xl p-3">
-          <div className="flex items-center gap-2 min-w-0">
-            <FileTextIcon size={14} className="text-[var(--primary)] shrink-0" />
-            <div className="min-w-0">
-              <p className="text-sm text-foreground truncate">{getTemplate(doc.doc_type)?.label ?? doc.doc_type}</p>
-              <p className="text-[11px] text-muted-foreground">{doc.format.toUpperCase()} · {new Date(doc.created_at).toLocaleDateString('tr-TR')}</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-1 shrink-0">
-            <button onClick={() => handleDownload(doc)} disabled={busyId === doc.id} className="p-1.5 text-muted-foreground hover:text-[var(--primary)] transition-colors disabled:opacity-50" aria-label="İndir"><FileDown size={15} /></button>
-            <button onClick={() => handleDelete(doc)} disabled={busyId === doc.id} className="p-1.5 text-muted-foreground hover:text-rose-400 transition-colors disabled:opacity-50" aria-label="Sil"><Trash2 size={14} /></button>
-          </div>
-        </div>
-      ))}
       {message && <p className="text-xs text-muted-foreground">{message}</p>}
     </div>
   );
@@ -492,7 +436,13 @@ export function CasesPanel() {
             )}
 
             {!isEditing && <CasePartiesSection caseId={selected.id} clients={clients} />}
-            {!isEditing && <CaseDocumentsSection caseId={selected.id} />}
+            {!isEditing && (
+              <DocumentsSection
+                target="case"
+                targetId={selected.id}
+                emptyHint="Bu dosyada henüz belge yok. Dilekçe, karar, vekaletname veya delil gibi evrakı yüklemek için tıklayın ya da buraya sürükleyin — Doküman Otomasyonu'nda bu dosya seçilerek üretilen belgeler de burada listelenir."
+              />
+            )}
           </div>
         )}
       </div>

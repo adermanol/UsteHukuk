@@ -60,6 +60,7 @@ Bu script:
    - `supabase/migrations/20260811000000_self_hosted_ops.sql`
    - `supabase/migrations/20260812000000_case_documents.sql`
    - `supabase/migrations/20260821000000_procedure_runs_delete.sql`
+   - `supabase/migrations/20260916000000_uploaded_documents.sql`
 
    **`00000000000000_schema.sql`'i çalıştırmayın.** Bu, projede fiilen kullanılmayan eski bir CMS tablo taslağıdır (`general_settings`, `hero_section`, vb.) — gerçek site içeriği ve LLM sağlayıcı ayarları `app_settings` tablosunda (`key='cms_data'` / `key='llm_settings'`) tutulur, bu eski taslak tablolarda değil. Çalıştırmak zarar vermez ama gereksiz karışıklık yaratır.
 

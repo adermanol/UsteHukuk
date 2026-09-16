@@ -124,6 +124,7 @@ export async function POST(req: Request) {
           const { error: insertError } = await supabaseAdmin.from('case_documents').insert({
             case_id: caseId, doc_type: docType, format, file_name: rawFilename,
             storage_path: storagePath, created_by: user.id,
+            source: 'generated', mime_type: contentType, size_bytes: buf.length,
           });
           if (insertError) {
             console.error('case_documents insert error:', insertError);
