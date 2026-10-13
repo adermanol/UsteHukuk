@@ -7,9 +7,39 @@ import { notFound } from 'next/navigation';
 import { Footer } from '@/components/public/Footer';
 import { MobileNavDrawer } from '@/components/public/MobileNavDrawer';
 import { PlainTextArticle } from '@/components/public/PlainTextArticle';
+import type { Metadata } from 'next';
+import { SITE_URL } from '@/lib/site';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
+}
+
+// SEO düzeltmesi (2026-10): bu sayfalar kendi metadata'sını ÜRETMİYORDU, bu
+// yüzden kök layout'un başlığını VE canonical'ını (ana sayfa) miras
+// alıyorlardı. Sonuç: Google'a "bu sayfanın asıl adresi ana sayfadır" deniyor
+// ve arama sonucunda büro adı aratıldığında ana sayfa yerine örneğin çerez
+// politikası çıkabiliyordu — canlıda gözlemlendi. Her sayfa artık kendi
+// başlığını, açıklamasını ve canonical'ını bildirir.
+//
+// Hukuki metinler (KVKK/çerez/aydınlatma) arama sonuçlarında öne çıkması
+// GEREKEN sayfalar değildir; bu yüzden `robots: index:false, follow:true`
+// ile dizinden çıkarılır ama içindeki bağlantılar taranmaya devam eder.
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const data = await getCmsData();
+  const locale = await getServerLocale();
+  const page = data.legalPages.find(p => p.slug === slug && p.isActive);
+  if (!page) return {};
+
+  const title = pick(page.title, locale);
+  const plain = pick(page.content, locale).replace(/\s+/g, ' ').trim();
+
+  return {
+    title: `${title} | ${data.general.logoText}`,
+    description: plain.length > 160 ? `${plain.slice(0, 157)}...` : plain,
+    alternates: { canonical: `${SITE_URL}/hukuki/${slug}` },
+    robots: { index: false, follow: true },
+  };
 }
 
 export default async function LegalPage({ params }: PageProps) {

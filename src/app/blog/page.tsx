@@ -7,6 +7,22 @@ import { getDictionary } from '@/lib/i18n/dictionary';
 import { pick } from '@/lib/i18n/locales';
 import { Footer } from '@/components/public/Footer';
 import { MobileNavDrawer } from '@/components/public/MobileNavDrawer';
+import type { Metadata } from 'next';
+import { SITE_URL } from '@/lib/site';
+
+// Blog listesi de kendi metadata'sını üretmiyordu; ana sayfanın canonical'ını
+// miras alıyordu (bkz. hukuki/[slug]/page.tsx'teki not).
+export async function generateMetadata(): Promise<Metadata> {
+  const data = await getCmsData();
+  const title = `Hukuki Yazılar | ${data.general.logoText}`;
+  const description = 'Şirketler, sözleşmeler, bilişim, yapay zekâ, KVKK, göç ve uluslararası hukuk alanlarında bilgilendirici yazılar.';
+  return {
+    title,
+    description,
+    alternates: { canonical: `${SITE_URL}/blog` },
+    openGraph: { title, description, url: `${SITE_URL}/blog`, type: 'website' },
+  };
+}
 
 export default async function BlogIndexPage() {
   const data = await getCmsData();

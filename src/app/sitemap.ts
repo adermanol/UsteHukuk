@@ -47,14 +47,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.9,
   }));
 
-  const legalEntries: MetadataRoute.Sitemap = (cms?.legalPages ?? [])
-    .filter(page => page.isActive)
-    .map(page => ({
-      url: `${SITE_URL}/hukuki/${page.slug}`,
-      lastModified: now,
-      changeFrequency: 'yearly',
-      priority: 0.3,
-    }));
-
-  return [...staticEntries, ...practiceEntries, ...blogEntries, ...legalEntries];
+  // Hukuki metin sayfaları (KVKK/çerez/aydınlatma) bilinçli olarak sitemap'e
+  // DAHİL EDİLMEZ: bu sayfalar `robots: index:false` ile dizinden çıkarıldı
+  // (bkz. hukuki/[slug]/page.tsx). Dizine girmemesini istediğimiz bir sayfayı
+  // sayfa haritasında listelemek çelişkili bir sinyaldir. Sayfalar siteden
+  // bağlantılıdır ve erişilebilir olmaya devam eder.
+  return [...staticEntries, ...practiceEntries, ...blogEntries];
 }
