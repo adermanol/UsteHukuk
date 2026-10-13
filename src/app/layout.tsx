@@ -97,6 +97,17 @@ export async function generateMetadata(): Promise<Metadata> {
     // engellenir; burada ek bir güvenlik katmanı olarak genel site için
     // indekslemeye açık olduğumuz açıkça belirtilir.
     robots: { index: true, follow: true },
+    // Google Search Console site sahipliği doğrulaması. Sayfaya görünür
+    // hiçbir şey eklemez; yalnızca <head> içine bir meta etiketi koyar.
+    // Google doğrulamayı sürdürmek için bu etiketin kalıcı olmasını ister —
+    // doğrulama tamamlandıktan sonra da SİLİNMEMELİDİR.
+    // Not: Search Console iki biçim verir. DNS TXT kaydı biçimi
+    // "google-site-verification=<token>" şeklindedir; meta etiketinde ise
+    // yalnızca <token> yazılır. Next.js bu değeri olduğu gibi content'e
+    // koyduğu için önek BURADA bulunmamalıdır.
+    verification: {
+      google: '11OnBJo3IdCJpJIKz2QuGKX2zI-HpWUculMAX_k5u9o',
+    },
   };
 }
 
