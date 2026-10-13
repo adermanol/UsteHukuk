@@ -8,6 +8,7 @@ import { LocaleProvider } from "@/lib/i18n/LocaleProvider";
 import { CookieBanner } from "@/components/public/CookieBanner";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { getThemeSetting } from "@/lib/theme";
+import { SITE_URL } from "@/lib/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,19 +32,72 @@ const notoSansArabic = Noto_Sans_Arabic({
   subsets: ["arabic"],
 });
 
+// SEO/GEO denetimi (2026-10, bkz. GEO_Research/): buradaki açıklama 7 dilin
+// hepsinde "Yapay Zeka Destekli Operasyon Sistemi" idi — yönetim panelinin
+// şablonundan kalmış bir metin. Arama motorları ve yapay zekâ yanıt motorları
+// bir sayfanın NE olduğunu ilk olarak başlık ve açıklamadan anlar; bu metin
+// büroyu bir hukuk bürosu değil bir YAZILIM ÜRÜNÜ olarak tanımlıyor ve
+// markanın yanlış kategoride anılmasına yol açıyordu. Her dil için o dilde
+// yazılmış, büronun ne yaptığını ve nerede olduğunu söyleyen metinlerle
+// değiştirildi. Açıklamalar 50-165 karakter aralığında tutulur (arama
+// sonucunda kırpılmadan görünen uzunluk).
 const METADATA_BY_LOCALE: Record<Locale, { title: string; description: string }> = {
-  tr: { title: "Üste Hukuk Bürosu", description: "Yapay Zeka Destekli Operasyon Sistemi" },
-  en: { title: "Üste Hukuk Bürosu", description: "AI-Powered Operations System" },
-  ar: { title: "Üste Hukuk Bürosu", description: "نظام تشغيل مدعوم بالذكاء الاصطناعي" },
-  fa: { title: "Üste Hukuk Bürosu", description: "سیستم عملیاتی مبتنی بر هوش مصنوعی" },
-  ru: { title: "Üste Hukuk Bürosu", description: "Операционная система на базе ИИ" },
-  fr: { title: "Üste Hukuk Bürosu", description: "Système d'Exploitation Alimenté par l'IA" },
-  de: { title: "Üste Hukuk Bürosu", description: "KI-gestütztes Betriebssystem" },
+  tr: {
+    title: "Üste Hukuk Bürosu | İzmir Alsancak Avukat — Şirketler, Bilişim ve Yapay Zekâ Hukuku",
+    description: "İzmir Alsancak'ta Av. Deniz Üste tarafından kurulan hukuk bürosu. Şirketler, sözleşmeler, bilişim, yapay zekâ, KVKK, göç ve uluslararası hukuk alanlarında danışmanlık ve dava takibi.",
+  },
+  en: {
+    title: "Üste Law Office | Attorney in Izmir, Türkiye — Corporate, IT and AI Law",
+    description: "Law office founded by Attorney Deniz Üste in Alsancak, Izmir. Legal counsel and litigation in corporate, contract, IT, artificial intelligence, data protection, immigration and international law.",
+  },
+  ar: {
+    title: "مكتب أوستة للمحاماة | محامٍ في إزمير، تركيا — قانون الشركات وتقنية المعلومات والذكاء الاصطناعي",
+    description: "مكتب محاماة أسسه المحامي دنيز أوستة في ألسانجاك بإزمير. استشارات قانونية وتمثيل قضائي في قانون الشركات والعقود وتقنية المعلومات والذكاء الاصطناعي وحماية البيانات والهجرة والقانون الدولي.",
+  },
+  fa: {
+    title: "دفتر حقوقی اوسته | وکیل در ازمیر، ترکیه — حقوق شرکت‌ها، فناوری اطلاعات و هوش مصنوعی",
+    description: "دفتر حقوقی تأسیس‌شده توسط وکیل دنیز اوسته در السانجاک ازمیر. مشاوره حقوقی و پیگیری دعاوی در حوزه شرکت‌ها، قراردادها، فناوری اطلاعات، هوش مصنوعی، حفاظت از داده‌ها، مهاجرت و حقوق بین‌الملل.",
+  },
+  ru: {
+    title: "Юридическое бюро Üste | Адвокат в Измире, Турция — корпоративное, IT и ИИ право",
+    description: "Юридическое бюро, основанное адвокатом Денизом Üste в Алсанджаке, Измир. Консультации и ведение дел в области корпоративного, договорного, IT, ИИ, защиты данных, миграционного и международного права.",
+  },
+  fr: {
+    title: "Cabinet d'avocats Üste | Avocat à Izmir, Turquie — Droit des sociétés, informatique et IA",
+    description: "Cabinet fondé par Me Deniz Üste à Alsancak, Izmir. Conseil juridique et contentieux en droit des sociétés, des contrats, informatique, intelligence artificielle, protection des données, immigration et droit international.",
+  },
+  de: {
+    title: "Kanzlei Üste | Rechtsanwalt in Izmir, Türkei — Gesellschafts-, IT- und KI-Recht",
+    description: "Von Rechtsanwalt Deniz Üste in Alsancak, Izmir gegründete Kanzlei. Rechtsberatung und Prozessführung in Gesellschafts-, Vertrags-, IT-, KI-, Datenschutz-, Migrations- und internationalem Recht.",
+  },
 };
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getServerLocale();
-  return METADATA_BY_LOCALE[locale];
+  const { title, description } = METADATA_BY_LOCALE[locale];
+
+  return {
+    // metadataBase: göreli og:image/canonical yollarının mutlak URL'ye
+    // çevrilmesi için gerekli; yoksa Next.js build sırasında uyarı verir ve
+    // paylaşım kartı görseli çözümlenemez.
+    metadataBase: new URL(SITE_URL),
+    title,
+    description,
+    alternates: { canonical: '/' },
+    openGraph: {
+      type: 'website',
+      siteName: 'Üste Hukuk Bürosu',
+      title,
+      description,
+      url: '/',
+      locale,
+    },
+    twitter: { card: 'summary_large_image', title, description },
+    // Panel, müvekkil portalı ve kurulum akışları robots.ts ile de
+    // engellenir; burada ek bir güvenlik katmanı olarak genel site için
+    // indekslemeye açık olduğumuz açıkça belirtilir.
+    robots: { index: true, follow: true },
+  };
 }
 
 // Canlıya alma teşhisi (2026-08-21): bu ortamda `NEXT_PUBLIC_` önekli

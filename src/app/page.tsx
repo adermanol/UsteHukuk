@@ -13,6 +13,7 @@ import { getDictionary } from '@/lib/i18n/dictionary';
 import { pick } from '@/lib/i18n/locales';
 import { LocaleToggle } from '@/lib/i18n/LocaleToggle';
 import { fetchPublishedPosts, BlogSection } from '@/modules/blog';
+import { OrganizationJsonLd } from '@/components/public/StructuredData';
 
 export default async function PublicLandingPage() {
   const data = await getCmsData();
@@ -36,6 +37,10 @@ export default async function PublicLandingPage() {
 
   return (
     <div className="min-h-screen bg-[var(--secondary)] font-sans text-foreground overflow-x-hidden">
+
+      {/* SEO/GEO: büro + kurucu avukat yapısal verisi (görünmez, yalnızca
+          arama ve yapay zekâ motorları için) — bkz. StructuredData.tsx */}
+      <OrganizationJsonLd data={data} locale={locale} />
 
       {/* Top Bar — adres/telefon/e-posta dar ekranda taşmaması için lg altında gizlenir;
           bu bilgiler MobileNavDrawer içinde ve Footer'da zaten mevcut. */}
@@ -98,7 +103,7 @@ export default async function PublicLandingPage() {
           <div className="flex items-center gap-3 md:gap-4">
             <img
               src="/logo-icon.svg"
-              alt=""
+              alt={`${data.general.logoText} logosu`}
               width={55}
               height={64}
               className="h-11 md:h-16 w-auto drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)]"

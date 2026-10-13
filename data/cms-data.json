@@ -179,7 +179,89 @@
           "fa": "تهیه نظریات حقوقی علمی درباره بن‌بست میان سهامداران (Deadlock) و مسئولیت ارکان شرکت"
         }
       ],
-      "icon": "Briefcase"
+      "icon": "Briefcase",
+      "faq": [
+        {
+          "question": {
+            "tr": "Anonim şirket mi limited şirket mi kurmalıyım?",
+            "en": "Should I establish a joint stock company or a limited liability company?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "6102 sayılı TTK kapsamında seçim, ortak sayısı, sermaye yapısı, pay devrinin kolaylığı ve sorumluluk rejimine göre yapılır. Limited şirkette ortaklar kamu borçlarından payları oranında sorumlu tutulabilirken, anonim şirkette pay devri daha esnektir ve halka açılma ile yatırım alma süreçlerine daha uygundur. Doğru yapı, şirketin büyüme planına ve ortaklık dengesine göre belirlenir.",
+            "en": "Under Turkish Commercial Code No. 6102, the choice depends on the number of shareholders, capital structure, ease of share transfer and the liability regime. In a limited liability company shareholders may be held liable for public debts in proportion to their shares, whereas a joint stock company allows more flexible share transfers and better suits investment and public offering processes.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        },
+        {
+          "question": {
+            "tr": "Yönetim kurulu üyesinin sorumluluğu nereye kadar uzanır?",
+            "en": "What is the scope of a board member’s liability?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "TTK m. 553 uyarınca yönetim kurulu üyeleri, kanundan ve esas sözleşmeden doğan yükümlülüklerini kusurlarıyla ihlal ettiklerinde şirkete, pay sahiplerine ve alacaklılara karşı sorumludur. Sorumluluk hukuki, cezai ve mali boyutlar taşıyabilir; görev dağılımının yazılı olarak yapılması ve kararların usulüne uygun belgelenmesi sorumluluğun sınırlandırılmasında belirleyicidir.",
+            "en": "Under Article 553 of the Turkish Commercial Code, board members are liable to the company, shareholders and creditors where they culpably breach duties arising from law or the articles of association. Liability may be civil, criminal or financial; a written allocation of duties and properly documented resolutions are decisive in limiting it.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        },
+        {
+          "question": {
+            "tr": "Şirket devralmadan önce hukuki inceleme (due diligence) neden yapılır?",
+            "en": "Why is legal due diligence carried out before an acquisition?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "Due diligence, devralınacak şirketin gizli hukuki risklerini işlem öncesinde ortaya çıkarmak için yapılır. İnceleme; ortaklık yapısı, devam eden davalar ve icra takipleri, sözleşmesel yükümlülükler, fikri mülkiyet hakları, çalışma ilişkileri ve idari yaptırımları kapsar. Tespit edilen riskler satın alma bedeline, teminat ve beyan-taahhüt maddelerine yansıtılır.",
+            "en": "Due diligence is carried out to reveal the target company’s hidden legal risks before closing. The review covers shareholding structure, pending litigation and enforcement proceedings, contractual obligations, intellectual property, employment relations and administrative sanctions. Identified risks are then reflected in the purchase price and in the representations, warranties and indemnity clauses.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        },
+        {
+          "question": {
+            "tr": "Ortaklar arasındaki uyuşmazlık şirketin feshine yol açar mı?",
+            "en": "Can a dispute between shareholders lead to dissolution of the company?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "TTK m. 531 uyarınca haklı sebeplerin varlığında pay sahipleri şirketin feshini dava edebilir; ancak mahkeme fesih yerine davacı payların gerçek değerinin ödenip ortaklıktan çıkarılmasına veya duruma uygun başka bir çözüme de karar verebilir. Uygulamada ortaklar sözleşmesinde öngörülen çıkış, öncelik ve uyuşmazlık çözüm mekanizmaları bu süreci büyük ölçüde belirler.",
+            "en": "Under Article 531 of the Turkish Commercial Code, shareholders may file for dissolution where just cause exists; however, the court may instead order that the claimant’s shares be purchased at their real value, or adopt another appropriate solution. In practice, exit, pre-emption and dispute resolution mechanisms set out in the shareholders’ agreement largely shape this process.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        }
+      ]
     },
     {
       "id": "pa-2",
@@ -257,7 +339,89 @@
           "fa": "ارائه نظریات حقوقی دکترینی درباره موانع اجرا و تفسیر قراردادهای تجاری پیچیده"
         }
       ],
-      "icon": "FileText"
+      "icon": "FileText",
+      "faq": [
+        {
+          "question": {
+            "tr": "Sözleşmeye cezai şart koymak ne işe yarar?",
+            "en": "What purpose does a penalty clause serve in a contract?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "Cezai şart, borç hiç veya gereği gibi ifa edilmediğinde zararın ispatına gerek kalmadan talep edilebilen bir güvencedir (TBK m. 179 vd.). Miktarın fahiş olması halinde hâkim TBK m. 182 uyarınca indirim yapabilir; tacirler arası sözleşmelerde bu indirim yetkisi sınırlıdır. Bu nedenle cezai şartın oranı ve tetikleyen ihlaller baştan dikkatle tasarlanmalıdır.",
+            "en": "A penalty clause is a security that can be claimed without proving damage where the obligation is not performed at all or not performed properly (Articles 179 et seq. of the Turkish Code of Obligations). Where the amount is excessive the judge may reduce it under Article 182; between merchants this power of reduction is limited. The rate and the triggering breaches should therefore be designed carefully from the outset.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        },
+        {
+          "question": {
+            "tr": "Mücbir sebep maddesi hangi durumları kapsamalı?",
+            "en": "What should a force majeure clause cover?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "Mücbir sebep maddesi, tarafların kontrolü dışındaki, öngörülemeyen ve kaçınılamayan olayları (doğal afet, savaş, salgın, idari yasaklama gibi) ve bunların sonuçlarını kapsamalıdır. Maddede olayın bildirim süresi, ifa süresinin uzaması, askıya alma ve belirli bir süre sonunda fesih hakkı açıkça düzenlenmelidir; aksi halde TBK m. 136 ifa imkânsızlığı hükümleri uygulanır ve sonuç taraflar için öngörülemez olur.",
+            "en": "A force majeure clause should cover events beyond the parties’ control that are unforeseeable and unavoidable — natural disasters, war, epidemics, administrative prohibitions — and their consequences. The clause should expressly regulate the notification period, extension of the performance period, suspension and the right to terminate after a defined duration; otherwise Article 136 on impossibility of performance applies and the outcome becomes unpredictable for the parties.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        },
+        {
+          "question": {
+            "tr": "İmzalanmış bir sözleşmeden tek taraflı dönülebilir mi?",
+            "en": "Can a signed contract be unilaterally rescinded?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "Kural olarak sözleşmeler tarafları bağlar; tek taraflı dönme ancak kanundan veya sözleşmeden doğan bir hakka dayanıyorsa mümkündür. Temerrüt halinde TBK m. 125, ayıplı ifa ve belirli sözleşme tiplerine özgü dönme/fesih hükümleri bu imkânı sağlar. Haksız fesih, karşı tarafın olumlu zararını talep etmesine yol açabileceği için dayanağın önceden belirlenmesi önemlidir.",
+            "en": "As a rule contracts bind the parties; unilateral rescission is possible only where it rests on a right arising from law or from the contract itself. Article 125 on default, provisions on defective performance and rescission or termination rules specific to certain contract types provide this possibility. Because wrongful termination may expose a party to the counterparty’s positive damages, the legal basis should be established in advance.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        },
+        {
+          "question": {
+            "tr": "Sözleşmede yetkili mahkeme ve uygulanacak hukuk neden önemlidir?",
+            "en": "Why do the choice of jurisdiction and governing law matter in a contract?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "Bu iki madde, uyuşmazlık çıktığında davanın nerede ve hangi kurallara göre görüleceğini belirlediği için sonucu doğrudan etkiler. Yabancılık unsuru taşıyan sözleşmelerde 5718 sayılı MÖHUK uyarınca taraflar uygulanacak hukuku seçebilir; tahkim tercih edilecekse tahkim şartının kurum, yer, dil ve hakem sayısını açıkça içermesi gerekir. Eksik veya çelişkili düzenleme, esasa girilmeden yıllar süren yetki tartışmalarına yol açabilir.",
+            "en": "These two clauses directly affect the outcome because they determine where and under which rules a dispute will be heard. In contracts with a foreign element the parties may choose the applicable law under Act No. 5718 on Private International Law; if arbitration is preferred, the arbitration clause must clearly state the institution, seat, language and number of arbitrators. Incomplete or contradictory drafting can lead to years of jurisdictional argument before the merits are ever reached.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        }
+      ]
     },
     {
       "id": "pa-3",
@@ -335,7 +499,89 @@
           "fa": "نظریات حقوقی درباره اجرای طرح‌های عمرانی، عملیات افراز و اصلاح سهم زمین در پروژه‌های ساخت در ازای واحد"
         }
       ],
-      "icon": "Home"
+      "icon": "Home",
+      "faq": [
+        {
+          "question": {
+            "tr": "Kat karşılığı inşaat sözleşmesinde arsa sahibi nelere dikkat etmeli?",
+            "en": "What should a landowner watch for in a construction-in-return-for-land-share contract?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "Arsa sahibinin öncelikli güvencesi, teslim süresi, gecikme cezası ve hangi bağımsız bölümlerin kime ait olacağının sözleşmede açıkça belirlenmesidir. Tapu devrinin inşaat seviyesine bağlanması, iskân (yapı kullanma izni) alınmadan son devirlerin yapılmaması ve yükleniciden teminat alınması uygulamada en sık karşılaşılan risklere karşı koruma sağlar. Sözleşmenin düzenleme şeklinde noterde yapılması geçerlilik şartıdır.",
+            "en": "The landowner’s primary safeguard is to set out clearly in the contract the delivery deadline, delay penalty and which independent units belong to whom. Linking title transfers to construction milestones, withholding the final transfers until the occupancy permit is obtained, and taking security from the contractor protect against the most common risks. Execution before a notary in the form of a deed is a condition of validity.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        },
+        {
+          "question": {
+            "tr": "Ecrimisil (haksız işgal tazminatı) hangi hallerde istenebilir?",
+            "en": "When can compensation for unjust occupation (ecrimisil) be claimed?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "Ecrimisil, taşınmazı haklı bir sebep olmaksızın kullanan kişiden, kullanım süresine karşılık talep edilen tazminattır. Malikin zarara uğradığını ayrıca ispatlaması gerekmez; işgalin haksızlığı ve kullanım süresi esas alınır. Talep, geriye dönük beş yıllık dönem için yapılabilir ve çoğu halde elatmanın önlenmesi davasıyla birlikte açılır.",
+            "en": "Ecrimisil is compensation claimed from a person who uses immovable property without just cause, corresponding to the period of use. The owner need not separately prove loss; what matters is the wrongfulness of the occupation and its duration. The claim may cover the preceding five-year period and is in most cases brought together with an action for prevention of interference.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        },
+        {
+          "question": {
+            "tr": "Kentsel dönüşümde kat maliklerinin hakları nelerdir?",
+            "en": "What rights do unit owners have in urban transformation?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "6306 sayılı Kanun kapsamında riskli yapı tespiti yapıldığında maliklerin tespite karşı idari itiraz ve dava hakkı bulunur. Dönüşüm kararı, maliklerin salt çoğunluğuyla alınabilir; karara katılmayanların payları kanunda öngörülen usulle değerlendirilir. Maliklerin kira yardımı veya dönüşüm kredisinden yararlanma hakkı da bu kanunla düzenlenmiştir.",
+            "en": "Where a building is designated as risky under Law No. 6306, owners have the right to object administratively and to bring an action against that designation. The transformation decision may be taken by an absolute majority of owners; the shares of those who do not join are dealt with under the procedure set out in the law. Owners’ entitlement to rental assistance or transformation loans is also regulated by the same law.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        },
+        {
+          "question": {
+            "tr": "Tapu iptal ve tescil davası ne kadar sürede açılmalıdır?",
+            "en": "Within what period must an action for annulment of title and registration be filed?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "Mülkiyet hakkına dayanan tapu iptal ve tescil talepleri kural olarak zamanaşımına tabi değildir; ancak muris muvazaası, yolsuz tescil veya kazandırıcı zamanaşımı gibi dayanaklara göre süre ve ispat koşulları değişir. Taşınmaz üzerinde üçüncü kişiler lehine tescil yapılmışsa iyiniyetli üçüncü kişilerin kazanımı korunabileceğinden (TMK m. 1023), gecikmeden hareket edilmesi önemlidir.",
+            "en": "Claims for annulment of title and registration based on ownership are in principle not subject to a limitation period; however, the time limits and evidentiary requirements vary according to the basis relied on, such as collusive transfer by the deceased, wrongful registration or acquisitive prescription. Because acquisitions by third parties acting in good faith may be protected under Article 1023 of the Civil Code where registration has been made in their favour, acting without delay is important.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        }
+      ]
     },
     {
       "id": "pa-4",
@@ -413,7 +659,89 @@
           "fa": "مدیریت تعارض قوانین در طلاق‌های دارای عنصر خارجی و نظریات حقوقی در اختلافات نسب"
         }
       ],
-      "icon": "Users"
+      "icon": "Users",
+      "faq": [
+        {
+          "question": {
+            "tr": "Boşanmada mal paylaşımı nasıl yapılır?",
+            "en": "How is marital property divided in a divorce?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "1 Ocak 2002’den sonraki evliliklerde yasal rejim edinilmiş mallara katılmadır; kural olarak evlilik içinde edinilen mallar tasfiyede yarı yarıya paylaşılır. Miras, bağış ve kişisel kullanım eşyaları ile evlilik öncesi mallar kişisel mal sayılır ve paylaşıma girmez. Mal rejimi tasfiyesi boşanma davasından ayrı bir dava konusudur ve boşanma kesinleşmeden sonuçlandırılamaz.",
+            "en": "For marriages entered into after 1 January 2002 the statutory regime is participation in acquired property; as a rule, property acquired during the marriage is shared equally upon liquidation. Inheritance, gifts, items of personal use and property owned before the marriage count as personal property and are excluded. Liquidation of the property regime is the subject of a separate action and cannot be concluded before the divorce becomes final.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        },
+        {
+          "question": {
+            "tr": "Velayet neye göre belirlenir?",
+            "en": "On what basis is custody decided?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "Velayette tek ölçüt çocuğun üstün yararıdır; ebeveynin ekonomik durumu tek başına belirleyici değildir. Mahkeme çocuğun yaşı, alıştığı çevre, bakım ihtiyacı, ebeveynlerin çocukla ilişkisi ve idrak çağındaki çocuğun görüşünü birlikte değerlendirir; gerektiğinde uzman (pedagog) raporu alır. Velayet kendisine verilmeyen ebeveynin kişisel ilişki kurma hakkı ayrıca düzenlenir.",
+            "en": "The sole criterion in custody is the best interests of the child; a parent’s financial position alone is not decisive. The court weighs the child’s age, familiar environment, care needs, the parents’ relationship with the child and, where the child is of sufficient maturity, the child’s own views, obtaining an expert report where necessary. The right of personal contact of the parent not granted custody is regulated separately.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        },
+        {
+          "question": {
+            "tr": "Vasiyetname nasıl geçerli olur?",
+            "en": "What makes a will valid?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "Türk Medeni Kanunu üç geçerli şekil öngörür: resmi vasiyetname (noter/sulh hâkimi önünde, iki tanıkla), el yazılı vasiyetname (tamamı miras bırakanın el yazısıyla, tarihli ve imzalı) ve olağanüstü hallerde sözlü vasiyetname. Şekil şartına uyulmaması iptal sebebidir. Vasiyetname ne olursa olsun saklı paylı mirasçıların paylarını tamamen ortadan kaldıramaz; aşan tasarruflar tenkis davasına konu olur.",
+            "en": "The Turkish Civil Code provides three valid forms: an official will (before a notary or magistrate, with two witnesses), a holographic will (written entirely in the testator’s own hand, dated and signed) and, in extraordinary circumstances, an oral will. Failure to observe the required form is a ground for annulment. Whatever its form, a will cannot wholly eliminate the reserved shares of forced heirs; dispositions exceeding them are subject to an action for abatement.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        },
+        {
+          "question": {
+            "tr": "Mirasın reddi için süre ne kadardır?",
+            "en": "What is the deadline for renouncing an inheritance?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "Yasal mirasçılar için ret süresi, mirasçı olduklarını öğrendikleri tarihten itibaren üç aydır (TMK m. 606). Süre hak düşürücüdür; kaçırılması halinde miras kayıtsız şartsız kabul edilmiş sayılır ve terekenin borçlarından kişisel malvarlığıyla sorumluluk doğabilir. Terekenin borca batık olduğu açıkça belli ise hükmen reddin ayrıca tespiti istenebilir.",
+            "en": "For statutory heirs the period for renunciation is three months from the date they learn that they are heirs (Article 606 of the Civil Code). The period is a forfeiture period; if missed, the inheritance is deemed accepted unconditionally and personal liability for the estate’s debts may arise. Where the estate is manifestly insolvent, a declaratory finding of renunciation by operation of law may also be sought.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        }
+      ]
     },
     {
       "id": "pa-5",
@@ -491,7 +819,89 @@
           "fa": "نظریات راهبردی درباره انطباق نظارتی مدل‌های کسب‌وکار نسل جدید مانند فین‌تک، هلث‌تک و اد‌تک"
         }
       ],
-      "icon": "Rocket"
+      "icon": "Rocket",
+      "faq": [
+        {
+          "question": {
+            "tr": "Kurucular sözleşmesi neden gereklidir?",
+            "en": "Why is a founders’ agreement necessary?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "Kurucular sözleşmesi, ortaklar arasındaki pay dağılımı, rol ve sorumluluklar, karar alma usulü ve ayrılık hallerini şirket kurulmadan önce yazılı hale getirir. Hak ediş takvimi (vesting), ayrılan kurucunun paylarının akıbeti, fikri mülkiyetin şirkete devri ve rekabet etmeme taahhütleri bu sözleşmenin omurgasını oluşturur. Bu konular baştan düzenlenmediğinde, kurucu ayrılıkları yatırım süreçlerini durduran bir engele dönüşebilir.",
+            "en": "A founders’ agreement records, before the company is even formed, the allocation of shares, roles and responsibilities, decision-making procedures and what happens on separation. Vesting schedules, the fate of a departing founder’s shares, assignment of intellectual property to the company and non-compete undertakings form its backbone. Where these matters are not settled at the outset, founder departures can become an obstacle that halts investment processes.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        },
+        {
+          "question": {
+            "tr": "SAFE ve convertible yatırım araçları Türk hukukunda nasıl kurgulanır?",
+            "en": "How are SAFE and convertible instruments structured under Turkish law?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "SAFE ve benzeri hisseye dönüştürülebilir araçlar Türk hukukunda doğrudan düzenlenmediğinden, sözleşme serbestisi çerçevesinde TTK’nın sermaye artırımı hükümleriyle uyumlu biçimde kurgulanır. Dönüşümün hangi olayda, hangi değerleme tavanı (cap) ve iskonto oranıyla gerçekleşeceği ile sermaye artırımının şirket organlarında nasıl karara bağlanacağı açıkça yazılmalıdır. Aksi halde yatırımcı, dönüşüm anında şirketin iradesine bağlı kalır.",
+            "en": "Because SAFEs and similar convertible instruments are not directly regulated under Turkish law, they are structured within freedom of contract in a manner consistent with the capital increase provisions of the Commercial Code. The triggering event for conversion, the valuation cap and discount rate, and how the capital increase will be resolved by the company’s organs must be set out expressly. Otherwise the investor remains dependent on the company’s will at the moment of conversion.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        },
+        {
+          "question": {
+            "tr": "Hisse opsiyon planı (ESOP) kurarken nelere dikkat edilmeli?",
+            "en": "What should be considered when setting up an employee share option plan (ESOP)?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "ESOP kurulurken opsiyonun hangi hukuki araçla verileceği (pay senedi, intifa, sözleşmesel vaat), hak ediş takvimi ve ayrılma halinde opsiyonun akıbeti belirlenmelidir. Vergisel boyut kritiktir: opsiyonun kullanıldığı anda ücret niteliğinde bir gelir doğup doğmayacağı plan tasarımına göre değişir. Plan, şirketin esas sözleşmesi ve varsa yatırımcı sözleşmeleriyle çelişmeyecek şekilde kurgulanmalıdır.",
+            "en": "When establishing an ESOP, the legal instrument used to grant the option (shares, usufruct or a contractual promise), the vesting schedule and the fate of options on departure must be settled. The tax dimension is critical: whether income in the nature of salary arises at the moment of exercise depends on how the plan is designed. The plan must be structured so as not to conflict with the company’s articles of association or with any investor agreements.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        },
+        {
+          "question": {
+            "tr": "Yatırım sözleşmesindeki hangi maddeler kurucu açısından risklidir?",
+            "en": "Which clauses in an investment agreement carry risk for founders?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "Kurucu açısından en kritik maddeler; tasfiye tercihi (liquidation preference), sulandırma önleyici (anti-dilution) hükümler, sürükleme hakkı (drag-along), veto hakları ve kurucu taahhütlerine bağlanan cezai şartlardır. Bu maddeler tek tek makul görünse de birlikte uygulandığında kurucunun şirket üzerindeki kontrolünü ve çıkış halindeki ekonomik getirisini beklenenin çok altına indirebilir. Bu nedenle sözleşme bütün olarak modellenerek değerlendirilmelidir.",
+            "en": "The most critical clauses for a founder are liquidation preference, anti-dilution provisions, drag-along rights, veto rights and penalty clauses attached to founder undertakings. Although each may appear reasonable in isolation, applied together they can reduce the founder’s control over the company and economic return on exit far below expectations. The agreement should therefore be assessed by modelling it as a whole.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        }
+      ]
     },
     {
       "id": "pa-6",
@@ -569,7 +979,89 @@
           "fa": "نظریات حقوقی علمی درباره جبران خسارت و شرایط فسخ قرارداد در چارچوب کنوانسیون CISG"
         }
       ],
-      "icon": "Globe"
+      "icon": "Globe",
+      "faq": [
+        {
+          "question": {
+            "tr": "Uluslararası satım sözleşmesinde Incoterms neden önemlidir?",
+            "en": "Why do Incoterms matter in international sales contracts?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "Incoterms kuralları, malın hasarının ve masraflarının alıcıya hangi anda geçtiğini belirlediği için uyuşmazlıkların en sık çıktığı noktayı düzenler. EXW, FOB, CIF ve DDP gibi terimlerin her biri taşıma, sigorta ve gümrük yükümlülüklerini farklı dağıtır. Sözleşmede terimin hangi Incoterms sürümüne (örneğin Incoterms 2020) atıf yaptığının yazılması, yorum farklarını önler.",
+            "en": "Incoterms rules determine the moment at which risk and costs pass to the buyer, and therefore govern the point at which disputes most frequently arise. Terms such as EXW, FOB, CIF and DDP each allocate carriage, insurance and customs obligations differently. Stating in the contract which edition of the Incoterms is referred to (for example Incoterms 2020) prevents divergent interpretations.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        },
+        {
+          "question": {
+            "tr": "Sözleşmede hangi ülkenin hukukunun uygulanacağı serbestçe seçilebilir mi?",
+            "en": "Can the parties freely choose which country’s law governs the contract?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "5718 sayılı MÖHUK uyarınca yabancılık unsuru taşıyan sözleşmelerde taraflar uygulanacak hukuku kural olarak serbestçe seçebilir. Ancak tüketici ve iş sözleşmeleri gibi zayıf tarafı koruyan alanlarda bu serbesti sınırlıdır ve Türk hukukunun doğrudan uygulanan kuralları ile kamu düzeni istisnası her halde saklıdır. Seçimin sözleşmede açık ve tereddütsüz biçimde yazılması, sonradan çıkacak yetki tartışmalarını önler.",
+            "en": "Under Act No. 5718 on Private International Law, parties to a contract with a foreign element may in principle freely choose the applicable law. However, this freedom is restricted in areas protecting a weaker party, such as consumer and employment contracts, and the overriding mandatory rules of Turkish law together with the public policy exception are reserved in every case. Stating the choice clearly and unambiguously in the contract prevents later jurisdictional argument.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        },
+        {
+          "question": {
+            "tr": "Uluslararası tahkim mi yoksa mahkeme mi tercih edilmeli?",
+            "en": "Should international arbitration or court litigation be preferred?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "Tahkim, kararın yabancı ülkelerde New York Konvansiyonu sayesinde daha kolay icra edilebilmesi, gizlilik ve hakem seçiminde uzmanlık imkânı sunar; buna karşılık masrafı genellikle daha yüksektir. Mahkeme yolu ise daha düşük maliyetli olabilir ama kararın yabancı ülkede tenfizi ek bir yargılama gerektirir. Seçim; işlemin büyüklüğüne, karşı tarafın bulunduğu ülkeye ve icra edilecek malvarlığının yerine göre yapılmalıdır.",
+            "en": "Arbitration offers easier enforcement abroad under the New York Convention, confidentiality and the ability to appoint arbitrators with relevant expertise; its cost is generally higher. Court proceedings may be less costly, but enforcing the judgment abroad requires separate proceedings. The choice should be made according to the size of the transaction, the counterparty’s jurisdiction and the location of the assets against which enforcement will be sought.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        },
+        {
+          "question": {
+            "tr": "Distribütörlük sözleşmesi sona erdiğinde tazminat talep edilebilir mi?",
+            "en": "Can compensation be claimed when a distributorship agreement ends?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "Türk hukukunda acentelik için öngörülen denkleştirme tazminatı (TTK m. 122), tek satıcılık ve distribütörlük ilişkilerine Yargıtay içtihadıyla kıyasen uygulanabilmektedir. Talebin kabulü; distribütörün sağlayıcıya yeni müşteri kazandırmış olmasına, sağlayıcının sözleşme sonrasında bundan önemli yarar sağlamaya devam etmesine ve sona ermenin distribütörün kusurundan kaynaklanmamasına bağlıdır. Sözleşmede bu konunun açıkça düzenlenmesi belirsizliği azaltır.",
+            "en": "Under Turkish law the goodwill indemnity provided for commercial agency (Article 122 of the Commercial Code) has been applied by analogy to exclusive distribution and distributorship relationships through Court of Cassation case law. Success depends on the distributor having brought new customers to the supplier, the supplier continuing to derive substantial benefit after termination, and the termination not resulting from the distributor’s fault. Expressly addressing the matter in the contract reduces uncertainty.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        }
+      ]
     },
     {
       "id": "pa-7",
@@ -647,7 +1139,89 @@
           "fa": "نظریات کارشناسی درباره نقض حقوق سرمایه‌گذاران خارجی در چارچوب معاهدات دوجانبه سرمایه‌گذاری (BIT)"
         }
       ],
-      "icon": "Plane"
+      "icon": "Plane",
+      "faq": [
+        {
+          "question": {
+            "tr": "Turkuaz Kart kimlere verilir ve hangi hakları sağlar?",
+            "en": "Who is eligible for the Turquoise Card and what rights does it confer?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "Turkuaz Kart; nitelikli iş gücü, nitelikli yatırımcı, bilim insanı ve kültürel-sanatsal faaliyetleriyle ülkeye katkı sağlayacağı değerlendirilen yabancılara 6735 sayılı Uluslararası İşgücü Kanunu kapsamında verilir. Kart süresiz çalışma hakkı tanır ve yabancının eş ile bakmakla yükümlü olduğu çocuklarına ikamet hakkı sağlar. İlk üç yıl geçiş süresi olarak uygulanır; bu süre içinde faaliyetin taahhüde uygun yürütülmesi denetlenir.",
+            "en": "The Turquoise Card is granted under International Labour Force Act No. 6735 to foreign nationals assessed as qualified workers, qualified investors, scientists, or persons contributing through cultural and artistic activity. The card confers an indefinite right to work and grants residence rights to the holder’s spouse and dependent children. The first three years apply as a transition period, during which compliance of the activity with the undertaking given is monitored.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        },
+        {
+          "question": {
+            "tr": "Yabancı bir kişi Türkiye’de gayrimenkul alarak vatandaşlık kazanabilir mi?",
+            "en": "Can a foreign national acquire Turkish citizenship by purchasing real estate?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "Türk Vatandaşlığı Kanunu’nun uygulanmasına ilişkin yönetmelik uyarınca, belirlenen tutarın üzerinde gayrimenkul satın alıp tapu kaydına üç yıl satılmama şerhi konulan yabancılar istisnai yoldan vatandaşlık başvurusu yapabilir. Eşik tutar ve uygulama koşulları zaman içinde değiştiği için başvuru öncesi güncel mevzuatın kontrol edilmesi gerekir. Taşınmazın değerinin yetkili kuruluşça düzenlenen değerleme raporuyla tespiti şarttır.",
+            "en": "Under the regulation implementing the Turkish Citizenship Act, foreign nationals who purchase real estate above a specified threshold and have a three-year no-sale annotation entered on the title may apply for citizenship by exception. Because the threshold amount and the conditions of application have changed over time, current legislation should be checked before applying. The value of the property must be established by a valuation report issued by an authorised institution.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        },
+        {
+          "question": {
+            "tr": "Tahdit kodu (G-87, V-87 gibi) nedir ve kaldırılabilir mi?",
+            "en": "What is a restriction code (such as G-87 or V-87) and can it be lifted?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "Tahdit kodları, yabancılar hakkında giriş yasağı veya idari denetim gerektiren durumları gösteren kayıtlardır; türüne göre ülkeye giriş, ikamet veya çalışma izni başvurularını engelleyebilir. Kodun kaldırılması için idareye başvuru yapılabilir ve reddi halinde idare mahkemesinde iptal davası açılabilir. Dava süreleri sıkı olduğundan, ret kararının tebliğinden itibaren geçen sürenin takibi önemlidir.",
+            "en": "Restriction codes are records indicating circumstances requiring an entry ban or administrative supervision in respect of foreign nationals; depending on the type, they may block entry, residence or work permit applications. An application may be made to the administration to have the code lifted, and if refused an action for annulment may be brought before the administrative court. Because the time limits are strict, tracking the period running from notification of the refusal is important.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        },
+        {
+          "question": {
+            "tr": "Sınır dışı (deport) kararına itiraz süresi nedir?",
+            "en": "What is the deadline for challenging a deportation decision?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "6458 sayılı Kanun uyarınca sınır dışı etme kararına karşı, kararın tebliğinden itibaren yedi gün içinde idare mahkemesine başvurulabilir. Dava açılması halinde sınır dışı işlemi, yargılama sonuçlanıncaya kadar kural olarak uygulanamaz. Bu süre hak düşürücü niteliktedir; kaçırılması halinde karar kesinleşir ve ülkeye giriş yasağı sonuçları doğar.",
+            "en": "Under Act No. 6458, an application may be made to the administrative court within seven days of notification of a deportation decision. Where an action is filed, the removal may as a rule not be carried out until the proceedings conclude. The period is a forfeiture period; if missed, the decision becomes final and the consequences of an entry ban follow.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        }
+      ]
     },
     {
       "id": "pa-8",
@@ -725,7 +1299,89 @@
           "fa": "نظریات عمیق حقوق تطبیقی درباره مداخله نظم عمومی (ordre public)"
         }
       ],
-      "icon": "Scale"
+      "icon": "Scale",
+      "faq": [
+        {
+          "question": {
+            "tr": "Yabancı mahkeme kararı Türkiye’de nasıl geçerli hale gelir?",
+            "en": "How does a foreign court judgment take effect in Türkiye?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "Yabancı mahkeme kararının Türkiye’de hüküm doğurması için 5718 sayılı MÖHUK uyarınca tanıma veya tenfiz davası açılması gerekir. Tanıma, kararın kesin delil ve kesin hüküm etkisini sağlar; tenfiz ise ayrıca icra edilebilirlik kazandırır. Mahkeme kararın esasını yeniden incelemez; kararın kesinleşmiş olması, savunma hakkına uyulmuş olması ve Türk kamu düzenine açıkça aykırı olmaması aranır.",
+            "en": "For a foreign judgment to produce effect in Türkiye, an action for recognition or enforcement must be brought under Act No. 5718 on Private International Law. Recognition gives the judgment the effect of conclusive evidence and res judicata; enforcement additionally renders it executable. The court does not review the merits again; what is required is that the judgment be final, that the right to a defence has been respected, and that it is not manifestly contrary to Turkish public policy.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        },
+        {
+          "question": {
+            "tr": "Yurt dışında verilen boşanma kararı Türkiye’de tanınmadan ne olur?",
+            "en": "What happens if a divorce granted abroad is not recognised in Türkiye?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "Tanıma kararı alınmadığı sürece kişi Türk nüfus kayıtlarında evli görünmeye devam eder; bu durum yeniden evlenme, miras ve velayet gibi sonuçları doğrudan etkiler. Yabancı boşanma kararları için nüfus müdürlüklerine idari başvuru yoluyla tescil imkânı da bulunmakla birlikte, bu yol kanunda sayılan koşulların tamamının sağlanmasına bağlıdır. Koşullar sağlanmıyorsa tanıma davası açılması gerekir.",
+            "en": "Until a recognition decision is obtained, the person continues to appear as married in the Turkish civil registry, which directly affects matters such as remarriage, inheritance and custody. Although foreign divorce decisions may also be registered through an administrative application to the civil registry directorates, that route depends on all the statutory conditions being satisfied. Where they are not, an action for recognition must be brought.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        },
+        {
+          "question": {
+            "tr": "Yabancı hakem kararları Türkiye’de nasıl icra edilir?",
+            "en": "How are foreign arbitral awards enforced in Türkiye?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "Türkiye, Yabancı Hakem Kararlarının Tanınması ve İcrası Hakkında New York Konvansiyonu’na taraftır; bu nedenle yabancı hakem kararlarının tenfizi konvansiyon hükümlerine göre yapılır. Mahkeme uyuşmazlığın esasını incelemez, yalnızca konvansiyonda sayılı ret sebeplerinin bulunup bulunmadığını denetler. Geçerli bir tahkim anlaşmasının varlığı ve kararın usulüne uygun tebliği en çok tartışılan noktalardır.",
+            "en": "Türkiye is a party to the New York Convention on the Recognition and Enforcement of Foreign Arbitral Awards, so enforcement of foreign awards proceeds under the Convention. The court does not examine the merits of the dispute but only reviews whether any of the grounds for refusal listed in the Convention exist. The existence of a valid arbitration agreement and proper notification of the award are the most frequently contested points.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        },
+        {
+          "question": {
+            "tr": "Birden fazla ülkeyle bağlantılı mirasta hangi hukuk uygulanır?",
+            "en": "Which law applies to an estate connected with more than one country?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "MÖHUK uyarınca mirasa kural olarak murisin milli hukuku uygulanır; ancak Türkiye’de bulunan taşınmazlar bakımından Türk hukuku uygulanır. Bu ikili yapı, aynı terekenin farklı unsurlarının farklı hukuklara tabi olması sonucunu doğurabilir. Yurt dışında düzenlenmiş vasiyetnamelerin şekil bakımından geçerliliği ise ayrıca değerlendirilir.",
+            "en": "Under the Act on Private International Law, succession is in principle governed by the national law of the deceased; however, Turkish law applies to immovable property located in Türkiye. This dual structure can result in different elements of the same estate being subject to different legal systems. The formal validity of wills executed abroad is assessed separately.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        }
+      ]
     },
     {
       "id": "pa-9",
@@ -803,7 +1459,89 @@
           "fa": "نظریات حقوقی درباره مسئولیت تصمیمات الگوریتمی و رژیم مالکیت دارایی‌های مبتنی بر وب۳/NFT"
         }
       ],
-      "icon": "Cpu"
+      "icon": "Cpu",
+      "faq": [
+        {
+          "question": {
+            "tr": "Şirketimin KVKK uyum süreci hangi adımlardan oluşur?",
+            "en": "What steps does a company’s data protection compliance process involve?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "Uyum süreci, şirketin işlediği kişisel verilerin envanterinin çıkarılmasıyla başlar; ardından her işleme faaliyeti için hukuki sebep belirlenir. Aydınlatma metinleri, açık rıza süreçleri, saklama ve imha politikası, veri güvenliği tedbirleri ve gerekiyorsa VERBİS kaydı bu adımları izler. Veri işleyenlerle (bulut sağlayıcı, muhasebe, çağrı merkezi gibi) yazılı sözleşme yapılması ve yurt dışı aktarım koşullarının incelenmesi süreci tamamlar.",
+            "en": "The process begins by mapping the personal data the company processes, after which a legal basis is identified for each processing activity. Privacy notices, explicit consent flows, a retention and destruction policy, data security measures and, where required, registration with the data controllers’ registry follow. Concluding written agreements with data processors — cloud providers, accountants, call centres — and reviewing the conditions for cross-border transfers complete the process.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        },
+        {
+          "question": {
+            "tr": "Veri ihlali yaşandığında ne kadar sürede bildirim yapılmalıdır?",
+            "en": "Within what period must a data breach be notified?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "Kişisel verilerin hukuka aykırı olarak ele geçirilmesi halinde veri sorumlusu, ihlali öğrendiği tarihten itibaren en geç 72 saat içinde Kişisel Verileri Koruma Kurulu’na bildirimde bulunmalıdır. İhlalden etkilenen ilgili kişilere de makul en kısa sürede bildirim yapılması gerekir. Bildirimin gecikmesi, ihlalin kendisinden bağımsız olarak ayrı bir idari para cezası sebebi oluşturabilir.",
+            "en": "Where personal data is unlawfully obtained, the data controller must notify the Personal Data Protection Board within 72 hours at the latest of becoming aware of the breach. Affected data subjects must also be notified within the shortest reasonable time. Delay in notification may constitute a separate ground for an administrative fine, independent of the breach itself.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        },
+        {
+          "question": {
+            "tr": "AB Yapay Zekâ Yasası (AI Act) Türkiye’deki şirketleri etkiler mi?",
+            "en": "Does the EU AI Act affect companies based in Türkiye?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "AI Act, yapay zekâ sistemini AB pazarına sunan veya çıktısı AB içinde kullanılan sağlayıcıları kapsadığı için, Türkiye’de yerleşik olup AB’ye hizmet veren şirketleri de doğrudan ilgilendirebilir. Yükümlülükler sistemin risk sınıfına göre değişir; yüksek riskli sistemlerde risk yönetimi, veri yönetişimi, teknik dokümantasyon ve insan gözetimi aranır. Bu nedenle ihracat yapan teknoloji şirketlerinin sistemlerini önce risk sınıflandırmasına tabi tutması önerilir.",
+            "en": "Because the AI Act covers providers placing an AI system on the EU market or whose output is used within the EU, it may directly concern companies established in Türkiye that serve the EU. Obligations vary with the system’s risk class; high-risk systems require risk management, data governance, technical documentation and human oversight. Technology companies that export are therefore advised to subject their systems to a risk classification first.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        },
+        {
+          "question": {
+            "tr": "Yapay zekânın verdiği zarardan kim sorumlu olur?",
+            "en": "Who is liable for harm caused by an artificial intelligence system?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "Türk hukukunda yapay zekâya ayrı bir hukuki kişilik tanınmadığı için sorumluluk, sistemi geliştiren, piyasaya süren veya kullanan kişilere yüklenir. Somut olaya göre TBK’nın haksız fiil hükümleri, üreticinin sorumluluğu veya ayıplı mal/hizmet hükümleri uygulanabilir. Sözleşmesel ilişkilerde sorumluluğun sınırlandırılması mümkün olmakla birlikte, ağır kusur ve kişilik haklarının ihlali hallerinde bu sınırlamalar geçerli olmayabilir.",
+            "en": "Because Turkish law does not recognise separate legal personality for artificial intelligence, liability attaches to those who develop, place on the market or use the system. Depending on the facts, tort provisions of the Code of Obligations, producer liability or rules on defective goods and services may apply. While liability may be limited contractually, such limitations may not hold in cases of gross fault or infringement of personality rights.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        }
+      ]
     },
     {
       "id": "pa-10",
@@ -881,7 +1619,89 @@
           "fa": "تهیه گزارش‌های «نظر کارشناسی حقوق کیفری فناوری اطلاعات» درباره دستکاری ادله الکترونیکی و اعتبار سوابق لاگ"
         }
       ],
-      "icon": "ShieldAlert"
+      "icon": "ShieldAlert",
+      "faq": [
+        {
+          "question": {
+            "tr": "Sosyal medyada hakaret veya iftiraya uğradım, ne yapmalıyım?",
+            "en": "What should I do if I am insulted or defamed on social media?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "Öncelikle içeriğin ekran görüntüsü, bağlantı adresi ve tarih bilgisiyle delillendirilmesi, mümkünse noter tespiti yaptırılması önerilir. Hakaret suçu kural olarak şikâyete bağlıdır ve fiilin ve failin öğrenilmesinden itibaren altı ay içinde şikâyet edilmelidir. Ayrıca 5651 sayılı Kanun kapsamında içeriğin çıkarılması veya erişimin engellenmesi için sulh ceza hâkimliğine başvurulabilir; bu yol ceza şikâyetinden bağımsız işler.",
+            "en": "It is advisable first to preserve evidence of the content with screenshots, the URL and date information, and where possible to have it recorded by a notary. Insult is as a rule prosecuted upon complaint, which must be made within six months of learning of the act and the perpetrator. In addition, an application may be made to the criminal judgeship of peace under Law No. 5651 for removal of the content or blocking of access; this route operates independently of the criminal complaint.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        },
+        {
+          "question": {
+            "tr": "Kripto para dolandırıcılığında hangi adımlar izlenmeli?",
+            "en": "What steps should be taken in a cryptocurrency fraud case?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "İlk adım, işlem kayıtlarının (cüzdan adresleri, işlem kimlikleri, borsa yazışmaları ve banka dekontları) eksiksiz toplanmasıdır; zincir üzerindeki veriler sonradan değiştirilemediği için bunlar güçlü delil oluşturur. Ardından cumhuriyet başsavcılığına suç duyurusunda bulunulur ve varlıkların bulunduğu platformlara yönelik tedbir talep edilir. Yurt dışı merkezli platformlar söz konusu olduğunda süreç adli yardımlaşma usullerini gerektirebileceğinden hızlı hareket edilmesi önemlidir.",
+            "en": "The first step is to collect the transaction records in full — wallet addresses, transaction identifiers, exchange correspondence and bank receipts — since on-chain data cannot be altered retrospectively and therefore constitutes strong evidence. A criminal complaint is then filed with the public prosecutor’s office and interim measures are requested in respect of the platforms holding the assets. Where the platforms are based abroad the process may require mutual legal assistance procedures, so acting quickly is important.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        },
+        {
+          "question": {
+            "tr": "Dijital cihazlara el konulması hukuken nasıl yapılır?",
+            "en": "How may digital devices lawfully be seized?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "CMK m. 134 uyarınca bilgisayar, telefon ve veri depolama araçlarında arama ve kopyalama için hâkim kararı gerekir; gecikmesinde sakınca bulunan hallerde savcılık kararı aranır ancak bu karar yirmi dört saat içinde hâkim onayına sunulmalıdır. İşlem sırasında tüm verilerin yedeklenmesi ve talep halinde bir kopyanın şüpheliye verilmesi kanuni zorunluluktur. Usule aykırı elde edilen dijital deliller hükme esas alınamaz.",
+            "en": "Under Article 134 of the Code of Criminal Procedure, a judge’s decision is required to search and copy computers, phones and data storage devices; where delay is prejudicial a prosecutor’s decision suffices, but it must be submitted for judicial approval within twenty-four hours. During the operation, backing up all data and providing a copy to the suspect on request are statutory requirements. Digital evidence obtained in breach of procedure cannot form the basis of a judgment.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        },
+        {
+          "question": {
+            "tr": "Bilişim sistemine izinsiz giriş suçunun cezası nedir?",
+            "en": "What is the penalty for unauthorised access to an information system?",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          },
+          "answer": {
+            "tr": "TCK m. 243 uyarınca bir bilişim sisteminin bütününe veya bir kısmına hukuka aykırı olarak girmek veya orada kalmaya devam etmek hapis cezasını gerektirir; sistemdeki verilerin yok edilmesi veya değiştirilmesi halinde TCK m. 244 uyarınca ceza artar. Fiilin bir banka, kredi kurumu veya kamu kurumuna ait sistemde işlenmesi nitelikli hal oluşturur. Suçun bilişim sistemi aracılığıyla işlenen başka bir suçla birlikte gündeme gelmesi halinde her fiil ayrıca değerlendirilir.",
+            "en": "Under Article 243 of the Turkish Penal Code, unlawfully accessing all or part of an information system, or remaining within it, carries a prison sentence; where data in the system is destroyed or altered the penalty increases under Article 244. Committing the act against a system belonging to a bank, credit institution or public authority constitutes an aggravated form. Where the offence arises together with another offence committed through an information system, each act is assessed separately.",
+            "ru": "",
+            "fr": "",
+            "de": "",
+            "ar": "",
+            "fa": ""
+          }
+        }
+      ]
     }
   ],
   "team": [

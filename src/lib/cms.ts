@@ -44,6 +44,11 @@ export interface CmsData {
     description: Translatable;
     services: Translatable[];
     icon: string;
+    // SEO/GEO (2026-10): her uzmanlık alanının kendi sayfasında gösterilen ve
+    // FAQPage yapısal verisine dönüşen soru-cevaplar. Yapay zekâ yanıt
+    // motorları doğrudan soruya cevap veren kısa paragrafları alıntılamayı
+    // tercih eder. CMS'te tutulur ki büro panelden düzenleyebilsin.
+    faq?: { question: Translatable; answer: Translatable }[];
   }[];
   team: {
     id: string;
@@ -160,6 +165,13 @@ function migrateTranslatableFields(rawData: any): void {
       title: toTranslatable(area.title),
       description: toTranslatable(area.description),
       services: Array.isArray(area.services) ? area.services.map(toTranslatable) : [],
+      // SSS alanı sonradan eklendi; eski kayıtlarda yok — boş dizi ile başlar.
+      faq: Array.isArray(area.faq)
+        ? area.faq.map((item: any) => ({
+            question: toTranslatable(item?.question),
+            answer: toTranslatable(item?.answer),
+          }))
+        : [],
     }));
   }
   if (Array.isArray(rawData.team)) {

@@ -31,7 +31,7 @@ export default async function LegalPage({ params }: PageProps) {
         <Link href="/" className="flex items-center gap-3 md:gap-4">
           <img
             src="/logo-icon.svg"
-            alt=""
+            alt={`${data.general.logoText} logosu`}
             width={45}
             height={52}
             className="h-9 md:h-13 w-auto drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)]"

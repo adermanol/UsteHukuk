@@ -9,8 +9,10 @@ import { pick } from '@/lib/i18n/locales';
 import { Footer } from '@/components/public/Footer';
 import { MobileNavDrawer } from '@/components/public/MobileNavDrawer';
 import { PlainTextArticle } from '@/components/public/PlainTextArticle';
+import { SITE_URL } from '@/lib/site';
+import { ArticleJsonLd } from '@/components/public/StructuredData';
 
-const SITE_URL = 'https://ustehukuk.com';
+
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -65,29 +67,30 @@ export default async function BlogPostPage({ params }: PageProps) {
   const content = pick(post.content, locale);
   const excerpt = pick(post.excerpt, locale);
 
-  // Arama motorları için Article yapılandırılmış verisi (JSON-LD) —
-  // zengin snippet (yazar, yayın tarihi vb.) olasılığını artırır.
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: title,
-    description: excerpt,
-    image: post.cover_image_url ? [post.cover_image_url] : undefined,
-    datePublished: post.published_at ?? undefined,
-    dateModified: post.updated_at,
-    author: { '@type': 'Organization', name: data.general.logoText },
-    publisher: { '@type': 'Organization', name: data.general.logoText },
-    mainEntityOfPage: { '@type': 'WebPage', '@id': `${SITE_URL}/blog/${slug}` },
-  };
+  // Arama ve yapay zekâ motorları için Article yapısal verisi. Yazar artık
+  // kurum değil KİŞİ (kurucu avukat): hukuki içerikte yazarın kim olduğu bir
+  // güvenilirlik sinyalidir ve yapay zekâ motorları bunu arar (bkz.
+  // GEO_Research/ raporları §3.2 "Yazar ve güncellik bilgisi").
+  const author = data.team?.find(m => m.isStarred) ?? data.team?.[0];
+  const authorName = author?.name ?? data.general.logoText;
 
   return (
     <div className="min-h-screen bg-[var(--secondary)] font-sans text-foreground">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <ArticleJsonLd
+        title={title}
+        description={excerpt}
+        slug={slug}
+        publishedAt={post.published_at}
+        updatedAt={post.updated_at}
+        imageUrl={post.cover_image_url}
+        authorName={authorName}
+        locale={locale}
+      />
       <nav className="relative z-10 px-4 py-5 md:px-10 md:py-6 flex items-center justify-between text-xs uppercase tracking-widest font-bold bg-[var(--background)] border-b border-border">
         <Link href="/" className="flex items-center gap-3 md:gap-4">
           <img
             src="/logo-icon.svg"
-            alt=""
+            alt={`${data.general.logoText} logosu`}
             width={45}
             height={52}
             className="h-9 md:h-13 w-auto drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)]"

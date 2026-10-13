@@ -83,8 +83,15 @@ export function PracticeAreasTabs({ areas }: { areas: CmsData['practiceAreas'] }
                     })}
                   </ul>
                 )}
+                {/* SEO/GEO (2026-10): bu bağlantı eskiden doğrudan iletişim
+                    formuna (#danisma) gidiyordu; artık o alanın kendi
+                    sayfasına gider. Butonun GÖRÜNÜMÜ birebir aynı — yalnızca
+                    hedefi değişti. Böylece hem ziyaretçi alanın ayrıntısını
+                    okuyabiliyor hem de arama/yapay zekâ motorları ana
+                    sayfadan alan sayfalarına giden bir iç bağlantı görüyor
+                    (alan sayfaları aksi halde yalnızca sitemap'ten keşfedilirdi). */}
                 <a
-                  href="#danisma"
+                  href={`/uzmanlik/${area.id}`}
                   className="inline-block border border-[var(--primary)] text-[var(--primary)] px-8 py-3 hover:bg-[var(--primary)] hover:text-black transition-colors font-medium text-sm tracking-wider"
                 >
                   {dict.practiceAreas.cta}

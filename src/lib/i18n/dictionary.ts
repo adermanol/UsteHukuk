@@ -6,6 +6,16 @@ export interface Dictionary {
   topbar: { address: string; phone: string; email: string };
   dashboardCta: string;
   practiceAreas: { eyebrow: string; heading: string; cta: string };
+  // Uzmanlık alanı detay sayfası (/uzmanlik/[slug]) başlıkları.
+  practiceArea: {
+    servicesHeading: string;
+    faqHeading: string;
+    relatedHeading: string;
+    otherAreasHeading: string;
+    ctaHeading: string;
+    ctaText: string;
+    ctaButton: string;
+  };
   team: { eyebrow: string; heading: string };
   blog: { eyebrow: string; heading: string; readMore: string; viewAll: string; backToHome: string; empty: string };
   footer: {
@@ -67,6 +77,15 @@ export interface Dictionary {
 // ilkesiyle aynı yaklaşım).
 const dictionary: Record<Locale, Dictionary> = {
   tr: {
+    practiceArea: {
+      servicesHeading: 'Sunduğumuz Hizmetler',
+      faqHeading: 'Sık Sorulan Sorular',
+      relatedHeading: 'İlgili Yazılar',
+      otherAreasHeading: 'DİĞER UZMANLIK ALANLARI',
+      ctaHeading: 'Bu konuda bilgi almak ister misiniz?',
+      ctaText: 'Somut olayınıza ilişkin değerlendirme için danışma formu üzerinden bize ulaşabilirsiniz.',
+      ctaButton: 'DANIŞMA TALEBİ',
+    },
     nav: { home: 'ANASAYFA', practiceAreas: 'UZMANLIK ALANLARI', team: 'EKİBİMİZ', contact: 'İLETİŞİM' },
     topbar: { address: 'Adres:', phone: 'Telefon:', email: 'E-posta:' },
     dashboardCta: 'DASHBOARD GİRİŞİ',
@@ -137,6 +156,15 @@ const dictionary: Record<Locale, Dictionary> = {
     },
   },
   en: {
+    practiceArea: {
+      servicesHeading: 'Our Services',
+      faqHeading: 'Frequently Asked Questions',
+      relatedHeading: 'Related Articles',
+      otherAreasHeading: 'OTHER PRACTICE AREAS',
+      ctaHeading: 'Would you like to discuss your matter?',
+      ctaText: 'You can reach us through the consultation form for an assessment of your specific situation.',
+      ctaButton: 'REQUEST CONSULTATION',
+    },
     nav: { home: 'HOME', practiceAreas: 'PRACTICE AREAS', team: 'OUR TEAM', contact: 'CONTACTS' },
     topbar: { address: 'Address:', phone: 'Phone:', email: 'Email:' },
     dashboardCta: 'DASHBOARD LOGIN',
@@ -207,6 +235,15 @@ const dictionary: Record<Locale, Dictionary> = {
     },
   },
   ar: {
+    practiceArea: {
+      servicesHeading: 'خدماتنا',
+      faqHeading: 'الأسئلة الشائعة',
+      relatedHeading: 'مقالات ذات صلة',
+      otherAreasHeading: 'مجالات عمل أخرى',
+      ctaHeading: 'هل ترغب في الاستفسار عن هذا الموضوع؟',
+      ctaText: 'يمكنكم التواصل معنا عبر نموذج الاستشارة لتقييم حالتكم الخاصة.',
+      ctaButton: 'طلب استشارة',
+    },
     nav: { home: 'الرئيسية', practiceAreas: 'مجالات العمل', team: 'فريقنا', contact: 'اتصل بنا' },
     topbar: { address: 'العنوان:', phone: 'الهاتف:', email: 'البريد الإلكتروني:' },
     dashboardCta: 'الدخول إلى لوحة التحكم',
@@ -277,6 +314,15 @@ const dictionary: Record<Locale, Dictionary> = {
     },
   },
   fa: {
+    practiceArea: {
+      servicesHeading: 'خدمات ما',
+      faqHeading: 'پرسش‌های متداول',
+      relatedHeading: 'مطالب مرتبط',
+      otherAreasHeading: 'سایر حوزه‌های تخصصی',
+      ctaHeading: 'مایل به دریافت اطلاعات در این زمینه هستید؟',
+      ctaText: 'برای بررسی موضوع خاص خود می‌توانید از طریق فرم مشاوره با ما تماس بگیرید.',
+      ctaButton: 'درخواست مشاوره',
+    },
     nav: { home: 'خانه', practiceAreas: 'حوزه‌های فعالیت', team: 'تیم ما', contact: 'تماس با ما' },
     topbar: { address: 'آدرس:', phone: 'تلفن:', email: 'ایمیل:' },
     dashboardCta: 'ورود به داشبورد',
@@ -347,6 +393,15 @@ const dictionary: Record<Locale, Dictionary> = {
     },
   },
   ru: {
+    practiceArea: {
+      servicesHeading: 'Наши услуги',
+      faqHeading: 'Часто задаваемые вопросы',
+      relatedHeading: 'Связанные статьи',
+      otherAreasHeading: 'ДРУГИЕ ОБЛАСТИ ПРАКТИКИ',
+      ctaHeading: 'Хотите получить консультацию по этому вопросу?',
+      ctaText: 'Вы можете связаться с нами через форму консультации для оценки вашей конкретной ситуации.',
+      ctaButton: 'ЗАПРОС КОНСУЛЬТАЦИИ',
+    },
     nav: { home: 'ГЛАВНАЯ', practiceAreas: 'НАПРАВЛЕНИЯ', team: 'НАША КОМАНДА', contact: 'КОНТАКТЫ' },
     topbar: { address: 'Адрес:', phone: 'Телефон:', email: 'Эл. почта:' },
     dashboardCta: 'ВХОД В ПАНЕЛЬ',
@@ -417,6 +472,15 @@ const dictionary: Record<Locale, Dictionary> = {
     },
   },
   fr: {
+    practiceArea: {
+      servicesHeading: 'Nos services',
+      faqHeading: 'Questions fréquentes',
+      relatedHeading: 'Articles liés',
+      otherAreasHeading: 'AUTRES DOMAINES DE COMPÉTENCE',
+      ctaHeading: 'Souhaitez-vous des informations à ce sujet ?',
+      ctaText: 'Vous pouvez nous contacter via le formulaire de consultation pour une évaluation de votre situation.',
+      ctaButton: 'DEMANDE DE CONSULTATION',
+    },
     nav: { home: 'ACCUEIL', practiceAreas: "DOMAINES D'INTERVENTION", team: 'NOTRE ÉQUIPE', contact: 'CONTACT' },
     topbar: { address: 'Adresse :', phone: 'Téléphone :', email: 'E-mail :' },
     dashboardCta: 'ACCÈS AU TABLEAU DE BORD',
@@ -487,6 +551,15 @@ const dictionary: Record<Locale, Dictionary> = {
     },
   },
   de: {
+    practiceArea: {
+      servicesHeading: 'Unsere Leistungen',
+      faqHeading: 'Häufig gestellte Fragen',
+      relatedHeading: 'Verwandte Beiträge',
+      otherAreasHeading: 'WEITERE TÄTIGKEITSFELDER',
+      ctaHeading: 'Möchten Sie sich dazu beraten lassen?',
+      ctaText: 'Für eine Einschätzung Ihres konkreten Anliegens erreichen Sie uns über das Beratungsformular.',
+      ctaButton: 'BERATUNG ANFRAGEN',
+    },
     nav: { home: 'STARTSEITE', practiceAreas: 'RECHTSGEBIETE', team: 'UNSER TEAM', contact: 'KONTAKT' },
     topbar: { address: 'Adresse:', phone: 'Telefon:', email: 'E-Mail:' },
     dashboardCta: 'ZUM DASHBOARD',

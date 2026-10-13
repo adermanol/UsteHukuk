@@ -16,7 +16,7 @@ export function Footer({ general, locale }: { general: CmsData['general']; local
           {/* Brand & About */}
           <div className="md:col-span-4">
             <div className="flex items-center gap-3 mb-6">
-              <img src="/logo-icon.svg" alt="" width={31} height={36} className="h-9 w-auto" />
+              <img src="/logo-icon.svg" alt={`${general.logoText} logosu`} width={31} height={36} className="h-9 w-auto" />
               <h2 className="font-serif text-3xl text-foreground tracking-wide">{general.logoText}</h2>
             </div>
             <p className="text-sm leading-relaxed text-muted-foreground mb-8">
